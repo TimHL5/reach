@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
-import { Button } from '../ui/Button';
+import { TallyButton } from '../ui/TallyButton';
 
 export const PricingSection = () => {
   const features = [
@@ -72,15 +72,19 @@ export const PricingSection = () => {
             ))}
           </div>
 
-          <Button
-            onClick={() => {
-              const cta = document.getElementById('cta');
-              cta?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="w-full mb-4"
-          >
+          <TallyButton className="w-full mb-4">
             Join Waitlist - Get Early Access
-          </Button>
+          </TallyButton>
+          <noscript>
+            <a
+              href="https://tally.so/r/J9KGO4"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block w-full px-8 py-4 bg-gradient-brand text-white rounded-lg font-semibold text-center mb-4"
+            >
+              Join Waitlist - Get Early Access
+            </a>
+          </noscript>
 
           <div className="text-center">
             <p className="text-success font-semibold mb-2">

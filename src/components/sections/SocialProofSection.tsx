@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Linkedin } from 'lucide-react';
 import { Card } from '../ui/Card';
+import { TallyButton } from '../ui/TallyButton';
 
 export const SocialProofSection = () => {
   const founders = [
@@ -103,17 +104,19 @@ export const SocialProofSection = () => {
           <p className="text-white/90 mb-6">
             for Spring 2026 launch
           </p>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => {
-              const cta = document.getElementById('cta');
-              cta?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="bg-white text-reach-blue px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-shadow"
-          >
+          <TallyButton variant="secondary">
             Join the Waitlist
-          </motion.button>
+          </TallyButton>
+          <noscript>
+            <a
+              href="https://tally.so/r/J9KGO4"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-white text-reach-blue px-8 py-4 rounded-lg font-semibold text-lg mt-4"
+            >
+              Join the Waitlist
+            </a>
+          </noscript>
         </motion.div>
       </div>
     </section>

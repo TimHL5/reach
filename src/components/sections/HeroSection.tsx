@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
-import { Button } from '../ui/Button';
+import { TallyButton } from '../ui/TallyButton';
 import { EssayDemo } from '../interactive/EssayDemo';
 
 export const HeroSection = () => {
@@ -58,15 +58,19 @@ export const HeroSection = () => {
               transition={{ delay: 0.6 }}
               className="flex flex-col sm:flex-row gap-4"
             >
-              <Button
-                variant="secondary"
-                onClick={() => {
-                  const cta = document.getElementById('cta');
-                  cta?.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
+              <TallyButton variant="secondary">
                 Join the Waitlist
-              </Button>
+              </TallyButton>
+              <noscript>
+                <a
+                  href="https://tally.so/r/J9KGO4"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block px-8 py-4 bg-white text-reach-blue rounded-lg font-semibold border-2 border-white hover:bg-reach-blue hover:text-white transition-all"
+                >
+                  Join the Waitlist
+                </a>
+              </noscript>
               <div className="text-white/80 flex items-center">
                 <span className="text-sm">Launching Spring 2026 • $199/year</span>
               </div>

@@ -1,6 +1,6 @@
 import { motion, useScroll } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import { Button } from '../ui/Button';
+import { TallyButton } from '../ui/TallyButton';
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -59,13 +59,12 @@ export const Header = () => {
           </button>
         </div>
 
-        <Button
+        <TallyButton
           variant={isScrolled ? 'primary' : 'secondary'}
-          onClick={() => scrollToSection('cta')}
           className="text-base py-2 px-6"
         >
           Join Waitlist
-        </Button>
+        </TallyButton>
       </nav>
     </motion.header>
   );

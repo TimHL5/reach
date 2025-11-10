@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Lock } from 'lucide-react';
-import { WaitlistForm } from '../forms/WaitlistForm';
+import { TallyButton } from '../ui/TallyButton';
 
 export const CTASection = () => {
   return (
@@ -19,7 +19,19 @@ export const CTASection = () => {
             Join 200+ students getting early access to Reach this Spring.
           </p>
 
-          <WaitlistForm />
+          <TallyButton className="text-lg">
+            Join the Waitlist
+          </TallyButton>
+          <noscript>
+            <a
+              href="https://tally.so/r/J9KGO4"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-8 py-4 bg-gradient-brand text-white rounded-lg font-semibold text-lg"
+            >
+              Join the Waitlist
+            </a>
+          </noscript>
 
           <motion.div
             initial={{ opacity: 0 }}
