@@ -10,19 +10,19 @@ export const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-brand">
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-brand py-12 sm:py-0">
       <RotatingLogos />
 
-      <div className="container mx-auto px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
           <motion.div
-            className="w-full lg:w-1/2 text-white space-y-8"
+            className="w-full lg:w-1/2 text-white space-y-6 sm:space-y-8"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
             <motion.h1
-              className="text-5xl lg:text-7xl font-bold leading-tight"
+              className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -36,16 +36,16 @@ export const HeroSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
             >
-              <p className="text-2xl lg:text-3xl font-semibold">
+              <p className="text-xl sm:text-2xl lg:text-3xl font-semibold">
                 AI-powered college admissions guidance for $199/year.
               </p>
-              <p className="text-2xl lg:text-3xl font-semibold">
+              <p className="text-xl sm:text-2xl lg:text-3xl font-semibold">
                 Not $10,000.
               </p>
             </motion.div>
 
             <motion.p
-              className="text-lg lg:text-xl text-white/90 max-w-xl"
+              className="text-base sm:text-lg lg:text-xl text-white/90 max-w-xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
@@ -54,15 +54,15 @@ export const HeroSection = () => {
             </motion.p>
 
             <motion.div
-              className="flex flex-col sm:flex-row items-start sm:items-center gap-4"
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              <TallyButton variant="secondary">
+              <TallyButton variant="secondary" className="w-full sm:w-auto">
                 Join the Waitlist
               </TallyButton>
-              <p className="text-white/90 text-sm">
+              <p className="text-white/90 text-sm text-center sm:text-left">
                 Launching Spring 2026 • $199/year
               </p>
             </motion.div>
@@ -74,13 +74,13 @@ export const HeroSection = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <div className="relative w-full max-w-[600px]">
+            <div className="relative w-full max-w-full sm:max-w-[500px] lg:max-w-[600px]">
               <img
                 src="/gasson.jpg"
                 alt="Boston College Gasson Hall"
-                className="w-full h-auto rounded-2xl shadow-2xl"
+                className="w-full h-auto rounded-xl sm:rounded-2xl shadow-2xl"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 to-transparent rounded-2xl" />
+              <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 to-transparent rounded-xl sm:rounded-2xl" />
             </div>
           </motion.div>
         </div>
@@ -88,7 +88,7 @@ export const HeroSection = () => {
 
       <motion.button
         onClick={scrollToNext}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/80 hover:text-white transition-colors z-20"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/80 hover:text-white transition-colors z-20 hidden sm:flex"
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
         aria-label="Scroll to next section"
