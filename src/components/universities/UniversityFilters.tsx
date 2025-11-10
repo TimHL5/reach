@@ -68,7 +68,7 @@ export const UniversityFilters = ({ filters, onFilterChange, universities }: Fil
         >
           <option value="all">All Types</option>
           <option value="Public">Public</option>
-          <option value="Private">Private</option>
+          <option value="Private Non-Profit">Private Non-Profit</option>
         </select>
       </div>
 
