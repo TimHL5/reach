@@ -11,23 +11,39 @@ export const SocialProofSection = () => {
       credentials: "BC '26, Finance & Entrepreneurship",
       quote:
         'I bootstrapped my way through admissions and built a $50K edtech company. Every student deserves the tools I wish I had.',
-      image: null, // Placeholder for now
+      linkedin: 'https://www.linkedin.com/in/timothyhaiyiliu/',
+      image: '/timothy.jpeg',
+      initials: 'TL',
     },
     {
-      name: 'Ethan Chen',
+      name: 'Ethan Foreman',
       role: 'CMO',
       credentials: "BC '26, Marketing",
       quote:
         'I navigated admissions as a first-gen student. Reach exists to level the playing field for everyone who does not have access to expensive consultants.',
-      image: null,
+      linkedin: 'https://www.linkedin.com/in/ethan-j-foreman/',
+      image: '/ethan.jpeg',
+      initials: 'EF',
     },
     {
-      name: 'Alex Rodriguez',
+      name: 'Alex Amaral',
       role: 'CFO',
       credentials: "BC '26, Finance",
       quote:
         'Financial barriers should not determine educational outcomes. We are making world-class guidance accessible to every family.',
-      image: null,
+      linkedin: 'https://www.linkedin.com/in/alexander-amaral-8a1743288/',
+      image: '/alex.jpeg',
+      initials: 'AA',
+    },
+    {
+      name: 'Dean Kaduboski',
+      role: 'COO',
+      credentials: "BC '26, Finance & Leadership",
+      quote:
+        'Every student deserves a fair shot at their dream schools. We are building the tools to make that possible.',
+      linkedin: 'https://www.linkedin.com/in/deankaduboski/',
+      image: '/dean.jpeg',
+      initials: 'DK',
     },
   ];
 
@@ -50,7 +66,7 @@ export const SocialProofSection = () => {
         </motion.div>
 
         {/* Founder cards */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {founders.map((founder, idx) => (
             <motion.div
               key={idx}
@@ -60,15 +76,30 @@ export const SocialProofSection = () => {
               transition={{ delay: idx * 0.1 }}
             >
               <Card className="h-full flex flex-col">
-                <div className="w-32 h-32 mx-auto mb-4 bg-gradient-brand rounded-full flex items-center justify-center text-white text-4xl font-bold">
-                  {founder.name.split(' ').map(n => n[0]).join('')}
+                <div className="w-32 h-32 mx-auto mb-4 bg-gradient-brand rounded-full flex items-center justify-center text-white text-4xl font-bold overflow-hidden">
+                  {founder.image ? (
+                    <img
+                      src={founder.image}
+                      alt={founder.name}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        if (e.currentTarget.nextSibling) {
+                          (e.currentTarget.nextSibling as HTMLElement).style.display = 'flex';
+                        }
+                      }}
+                    />
+                  ) : null}
+                  <span className={founder.image ? 'hidden' : ''}>
+                    {founder.initials || founder.name.split(' ').map(n => n[0]).join('')}
+                  </span>
                 </div>
                 <h3 className="text-xl font-bold text-midnight mb-1">{founder.name}</h3>
                 <p className="text-reach-blue font-semibold mb-1">{founder.role}</p>
                 <p className="text-sm text-gray-600 mb-4">{founder.credentials}</p>
                 <p className="text-gray-700 italic mb-4 flex-1">"{founder.quote}"</p>
                 <a
-                  href="https://linkedin.com"
+                  href={founder.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center text-reach-blue hover:text-reach-purple transition-colors"
