@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
 import { TallyButton } from '../ui/TallyButton';
-import { CollegeLogoAnimation } from '../interactive/CollegeLogoAnimation';
+import { RotatingLogos } from '../interactive/RotatingLogos';
 
 export const HeroSection = () => {
   const scrollToNext = () => {
@@ -10,22 +10,21 @@ export const HeroSection = () => {
   };
 
   return (
-    <section className="min-h-screen bg-gradient-brand relative overflow-hidden flex items-center">
-      {/* Animated background grain texture */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiBmaWx0ZXI9InVybCgjYSkiIG9wYWNpdHk9IjAuMDUiLz48L3N2Zz4=')]" />
-      </div>
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-brand">
+      {/* Rotating background logos */}
+      <RotatingLogos />
 
-      <div className="container mx-auto px-6 py-20 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left side - Headline and CTA */}
+      <div className="container mx-auto px-6 lg:px-8 relative z-10">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+          {/* Left side - Text content */}
           <motion.div
+            className="w-full lg:w-1/2 text-white space-y-8"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
             <motion.h1
-              className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight"
+              className="text-5xl lg:text-7xl font-bold leading-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -33,19 +32,22 @@ export const HeroSection = () => {
               Make every school within reach.
             </motion.h1>
 
-            <motion.p
-              className="text-xl md:text-2xl text-white/90 mb-2 leading-relaxed font-semibold"
+            <motion.div
+              className="space-y-2"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
             >
-              AI-powered college admissions guidance for $199/year.
-              <br />
-              Not $10,000.
-            </motion.p>
+              <p className="text-2xl lg:text-3xl font-semibold">
+                AI-powered college admissions guidance for $199/year.
+              </p>
+              <p className="text-2xl lg:text-3xl font-semibold">
+                Not $10,000.
+              </p>
+            </motion.div>
 
             <motion.p
-              className="text-lg text-white/80 mb-8"
+              className="text-lg lg:text-xl text-white/90 max-w-xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
@@ -54,10 +56,10 @@ export const HeroSection = () => {
             </motion.p>
 
             <motion.div
+              className="flex flex-col sm:flex-row items-start sm:items-center gap-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="flex flex-col sm:flex-row gap-4"
             >
               <TallyButton variant="secondary">
                 Join the Waitlist
@@ -72,20 +74,28 @@ export const HeroSection = () => {
                   Join the Waitlist
                 </a>
               </noscript>
-              <div className="text-white/80 flex items-center">
-                <span className="text-sm">Launching Spring 2026 • $199/year</span>
-              </div>
+              <p className="text-white/90 text-sm">
+                Launching Spring 2026 • $199/year
+              </p>
             </motion.div>
           </motion.div>
 
-          {/* Right side - College Logo Animation */}
+          {/* Right side - BC Gasson Hall image */}
           <motion.div
+            className="w-full lg:w-1/2 flex items-center justify-center"
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex justify-center lg:justify-end"
           >
-            <CollegeLogoAnimation />
+            <div className="relative w-full max-w-[600px]">
+              <img
+                src="https://www.bc.edu/content/dam/bc1/offices/alumni/images/Homepage/gasson-summer.jpg"
+                alt="Boston College Gasson Hall"
+                className="w-full h-auto rounded-2xl shadow-2xl"
+              />
+              {/* Subtle overlay to blend with gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 to-transparent rounded-2xl" />
+            </div>
           </motion.div>
         </div>
       </div>
@@ -93,7 +103,7 @@ export const HeroSection = () => {
       {/* Scroll indicator */}
       <motion.button
         onClick={scrollToNext}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/80 hover:text-white transition-colors"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/80 hover:text-white transition-colors z-20"
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
         aria-label="Scroll to next section"
