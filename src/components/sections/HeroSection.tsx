@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
 import { TallyButton } from '../ui/TallyButton';
-import { EssayDemo } from '../interactive/EssayDemo';
+import { CollegeLogoAnimation } from '../interactive/CollegeLogoAnimation';
 
 export const HeroSection = () => {
   const scrollToNext = () => {
@@ -34,13 +34,14 @@ export const HeroSection = () => {
             </motion.h1>
 
             <motion.p
-              className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed"
+              className="text-xl md:text-2xl text-white/90 mb-2 leading-relaxed font-semibold"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
             >
-              The AI-native workspace where you build your college application—from tracking
-              achievements to submitting essays—with personalized feedback at every step.
+              AI-powered college admissions guidance for $199/year.
+              <br />
+              Not $10,000.
             </motion.p>
 
             <motion.p
@@ -49,7 +50,7 @@ export const HeroSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
             >
-              Get the guidance wealthy families pay $10K+ for, at a price every student can afford.
+              Get expert essay feedback, application strategy, and financial aid matching—the tools wealthy families use—at a price every student can afford.
             </motion.p>
 
             <motion.div
@@ -77,14 +78,14 @@ export const HeroSection = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right side - Interactive Essay Demo */}
+          {/* Right side - College Logo Animation */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
             className="flex justify-center lg:justify-end"
           >
-            <EssayDemo />
+            <CollegeLogoAnimation />
           </motion.div>
         </div>
       </div>
