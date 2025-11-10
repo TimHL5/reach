@@ -191,8 +191,8 @@ export const UniversityExplorer = () => {
     const beforeAcceptance = result.length;
     result = result.filter(u =>
       !u.acceptance_rate || (
-        u.acceptance_rate * 100 >= filters.minAcceptance &&
-        u.acceptance_rate * 100 <= filters.maxAcceptance
+        u.acceptance_rate >= filters.minAcceptance &&
+        u.acceptance_rate <= filters.maxAcceptance
       )
     );
     if (beforeAcceptance !== result.length) {
