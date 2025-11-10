@@ -27,48 +27,103 @@ export const UniversityExplorer = () => {
   // Fetch universities on mount
   useEffect(() => {
     const fetchUniversities = async () => {
+      setLoading(true);
+      console.log('🚀 Starting university fetch with batch loading...');
+
       try {
-        console.log('🔍 Starting to fetch universities...');
-
-        const { data, error, count } = await supabase
+        // First, get the total count
+        const { count: totalCount, error: countError } = await supabase
           .from('universities')
-          .select('*', { count: 'exact' })
-          .order('name');
+          .select('*', { count: 'exact', head: true });
 
-        console.log('📊 Supabase response:');
-        console.log('  - Data length:', data?.length);
-        console.log('  - Total count:', count);
-        console.log('  - Error:', error);
-
-        if (error) {
-          console.error('❌ Supabase error:', error);
-          throw error;
+        if (countError) {
+          console.error('❌ Error getting count:', countError);
+          throw countError;
         }
 
-        const universities = (data || []) as University[];
+        console.log('📊 Total universities in database:', totalCount);
 
-        if (universities.length > 0) {
-          // Check data sample
-          console.log('📝 First 3 universities:', universities.slice(0, 3));
+        // Fetch all universities in batches to avoid any limits
+        let allUniversities: University[] = [];
+        const batchSize = 1000; // Supabase default limit
+        let start = 0;
 
+        while (start < (totalCount || 0)) {
+          console.log(`📦 Fetching batch ${Math.floor(start / batchSize) + 1}: records ${start} to ${start + batchSize - 1}`);
+
+          const { data: batch, error: batchError } = await supabase
+            .from('universities')
+            .select('*')
+            .order('name')
+            .range(start, start + batchSize - 1);
+
+          if (batchError) {
+            console.error('❌ Error fetching batch:', batchError);
+            throw batchError;
+          }
+
+          if (!batch || batch.length === 0) {
+            console.log('⚠️ No more data in this batch, stopping...');
+            break;
+          }
+
+          allUniversities = [...allUniversities, ...(batch as University[])];
+          console.log(`  ✅ Batch fetched: ${batch.length} records. Total so far: ${allUniversities.length}`);
+
+          start += batchSize;
+
+          // Safety check: if batch is smaller than batchSize, we've reached the end
+          if (batch.length < batchSize) {
+            console.log('✅ Reached end of data (partial batch)');
+            break;
+          }
+        }
+
+        console.log(`\n✅ FETCH COMPLETE`);
+        console.log(`  - Expected from count: ${totalCount}`);
+        console.log(`  - Actually fetched: ${allUniversities.length}`);
+
+        if (allUniversities.length !== totalCount) {
+          console.warn(`⚠️ MISMATCH: Fetched ${allUniversities.length} but count says ${totalCount}`);
+        }
+
+        // Analyze data
+        if (allUniversities.length > 0) {
           // Check unique types
-          const types = [...new Set(universities.map(u => u.type))];
+          const types = [...new Set(allUniversities.map(u => u.type))];
           console.log('🏛️ Unique types found:', types);
 
           // Count by type
-          const typeCounts = universities.reduce((acc: Record<string, number>, uni) => {
+          const typeCounts = allUniversities.reduce((acc: Record<string, number>, uni) => {
             const type = uni.type || 'Unknown';
             acc[type] = (acc[type] || 0) + 1;
             return acc;
           }, {} as Record<string, number>);
-          console.log('📈 Count by type:', typeCounts);
+
+          console.log('📈 Count by type:');
+          console.log('  - Public:', typeCounts['Public'] || 0);
+          console.log('  - Private Non-Profit:', typeCounts['Private Non-Profit'] || 0);
+          console.log('  - Other/Unknown:', typeCounts['Unknown'] || 0);
+
+          // Log sample universities
+          console.log('📝 Sample universities (first 5):');
+          console.table(allUniversities.slice(0, 5).map(u => ({
+            name: u.name,
+            city: u.city,
+            state: u.state,
+            type: u.type
+          })));
         }
 
-        setUniversities(universities);
-        setFilteredUniversities(universities);
+        console.log('✅ Setting universities state with', allUniversities.length, 'records\n');
+        setUniversities(allUniversities);
+        setFilteredUniversities(allUniversities);
+
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to fetch universities');
-        console.error('💥 Error fetching universities:', err);
+        console.error('💥 Fatal error fetching universities:', err);
+        setUniversities([]);
+        setFilteredUniversities([]);
       } finally {
         setLoading(false);
       }
