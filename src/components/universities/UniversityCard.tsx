@@ -30,7 +30,7 @@ export const UniversityCard = ({ university }: UniversityCardProps) => {
             <div className="flex items-center text-sm text-gray-700">
               <TrendingUp size={16} className="mr-2 text-reach-blue" />
               <span className="font-medium">Acceptance:</span>
-              <span className="ml-auto">{(university.acceptance_rate * 100).toFixed(1)}%</span>
+              <span className="ml-auto">{university.acceptance_rate.toFixed(1)}%</span>
             </div>
           )}
 
