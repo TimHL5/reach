@@ -11,12 +11,10 @@ export const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-brand">
-      {/* Rotating background logos */}
       <RotatingLogos />
 
       <div className="container mx-auto px-6 lg:px-8 relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-          {/* Left side - Text content */}
           <motion.div
             className="w-full lg:w-1/2 text-white space-y-8"
             initial={{ opacity: 0, x: -50 }}
@@ -64,23 +62,12 @@ export const HeroSection = () => {
               <TallyButton variant="secondary">
                 Join the Waitlist
               </TallyButton>
-              <noscript>
-                
-                  href="https://tally.so/r/J9KGO4"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block px-8 py-4 bg-white text-reach-blue rounded-lg font-semibold border-2 border-white hover:bg-reach-blue hover:text-white transition-all"
-                >
-                  Join the Waitlist
-                </a>
-              </noscript>
               <p className="text-white/90 text-sm">
                 Launching Spring 2026 • $199/year
               </p>
             </motion.div>
           </motion.div>
 
-          {/* Right side - BC Gasson Hall image */}
           <motion.div
             className="w-full lg:w-1/2 flex items-center justify-center"
             initial={{ opacity: 0, x: 50 }}
@@ -93,14 +80,12 @@ export const HeroSection = () => {
                 alt="Boston College Gasson Hall"
                 className="w-full h-auto rounded-2xl shadow-2xl"
               />
-              {/* Subtle overlay to blend with gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 to-transparent rounded-2xl" />
             </div>
           </motion.div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
       <motion.button
         onClick={scrollToNext}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/80 hover:text-white transition-colors z-20"
