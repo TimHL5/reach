@@ -1,10 +1,13 @@
 import { motion, useScroll } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { TallyButton } from '../ui/TallyButton';
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { scrollY } = useScroll();
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     return scrollY.on('change', (latest) => {
@@ -13,6 +16,11 @@ export const Header = () => {
   }, [scrollY]);
 
   const scrollToSection = (id: string) => {
+    if (!isHomePage) {
+      // If not on homepage, navigate there first
+      window.location.href = `/#${id}`;
+      return;
+    }
     const element = document.getElementById(id);
     element?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -26,11 +34,11 @@ export const Header = () => {
       }`}
     >
       <nav className="container mx-auto px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center space-x-2">
+        <Link to="/" className="flex items-center space-x-2">
           <span className={`text-2xl font-bold ${isScrolled ? 'text-reach-blue' : 'text-white'}`}>
             reach.
           </span>
-        </div>
+        </Link>
 
         <div className="hidden md:flex items-center space-x-8">
           <button
@@ -41,6 +49,14 @@ export const Header = () => {
           >
             How it works
           </button>
+          <Link
+            to="/universities"
+            className={`font-medium hover:text-reach-blue transition-colors ${
+              isScrolled ? 'text-midnight' : 'text-white'
+            }`}
+          >
+            Universities
+          </Link>
           <button
             onClick={() => scrollToSection('pricing')}
             className={`font-medium hover:text-reach-blue transition-colors ${
