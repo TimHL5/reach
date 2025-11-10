@@ -62,10 +62,10 @@ export const HeroSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              <Button 
-                variant="secondary" 
+              <Button
+                variant="secondary"
                 className="w-full sm:w-auto"
-                onClick={() => router.push('/get-matched')}
+                onClick={() => navigate('/get-matched')}
               >
                 Get My College Matches Free →
               </Button>

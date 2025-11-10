@@ -21,6 +21,7 @@ export const WaitlistForm = () => {
       // Save to Supabase waitlist table
       const { error } = await supabase
         .from('waitlist')
+        // @ts-expect-error - Waitlist table type not properly inferred
         .insert([{ email, created_at: new Date().toISOString() }]);
 
       if (error) {
