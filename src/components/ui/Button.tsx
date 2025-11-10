@@ -8,6 +8,11 @@ interface ButtonProps {
   type?: 'button' | 'submit';
   disabled?: boolean;
   className?: string;
+  'data-tally-open'?: string;
+  'data-tally-width'?: string;
+  'data-tally-overlay'?: string;
+  'data-tally-emoji-text'?: string;
+  'data-tally-emoji-animation'?: string;
 }
 
 export const Button = ({
@@ -16,7 +21,12 @@ export const Button = ({
   onClick,
   type = 'button',
   disabled = false,
-  className = ''
+  className = '',
+  'data-tally-open': dataTallyOpen,
+  'data-tally-width': dataTallyWidth,
+  'data-tally-overlay': dataTallyOverlay,
+  'data-tally-emoji-text': dataTallyEmojiText,
+  'data-tally-emoji-animation': dataTallyEmojiAnimation,
 }: ButtonProps) => {
   const baseStyles = 'px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed';
 
@@ -34,6 +44,11 @@ export const Button = ({
       onClick={onClick}
       type={type}
       disabled={disabled}
+      data-tally-open={dataTallyOpen}
+      data-tally-width={dataTallyWidth}
+      data-tally-overlay={dataTallyOverlay}
+      data-tally-emoji-text={dataTallyEmojiText}
+      data-tally-emoji-animation={dataTallyEmojiAnimation}
     >
       {children}
     </motion.button>
