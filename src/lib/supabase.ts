@@ -1,36 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
+import type { Database } from '../types/supabase';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+// Vite uses VITE_ prefix for environment variables
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://ecalxacozprhkpotruca.supabase.co';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVjYWx4YWNvenByaGtwb3RydWNhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI3NTQzNDUsImV4cCI6MjA3ODMzMDM0NX0.1DeUlcWTlY8LINonePBZCniLYbwSUXrORvkexvG2UrQ';
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
-// Types for our database
-export type University = {
-  id: string;
-  name: string;
-  slug: string;
-  city: string;
-  state: string | null;
-  country: string;
-  latitude: number | null;
-  longitude: number | null;
-  website: string | null;
-  logo_url: string | null;
-  image_url: string | null;
-  type: string | null;
-  total_enrollment: number | null;
-  acceptance_rate: number | null;
-  tuition_in_state: number | null;
-  tuition_out_state: number | null;
-  room_and_board: number | null;
-  graduation_rate: number | null;
-  retention_rate: number | null;
-  avg_financial_aid: number | null;
-  us_news_rank: number | null;
-  qs_world_rank: number | null;
-  application_deadline: string | null;
-  common_app: boolean | null;
-  coalition_app: boolean | null;
-  created_at: string;
-};
+export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
