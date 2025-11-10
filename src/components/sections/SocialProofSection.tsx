@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Linkedin } from 'lucide-react';
+import { Linkedin, Mail } from 'lucide-react';
 import { Card } from '../ui/Card';
 import { TallyButton } from '../ui/TallyButton';
 
@@ -12,6 +12,7 @@ export const SocialProofSection = () => {
       quote:
         'I bootstrapped my way through admissions and built a $50K edtech company. Every student deserves the tools I wish I had.',
       linkedin: 'https://www.linkedin.com/in/timothyhaiyiliu/',
+      email: 'tim@reachadmissions.app',
       image: '/timothy.jpeg',
       initials: 'TL',
     },
@@ -22,6 +23,7 @@ export const SocialProofSection = () => {
       quote:
         'I navigated admissions as a first-gen student. Reach exists to level the playing field for everyone who does not have access to expensive consultants.',
       linkedin: 'https://www.linkedin.com/in/ethan-j-foreman/',
+      email: 'ethan@reachadmissions.app',
       image: '/ethan.jpeg',
       initials: 'EF',
     },
@@ -32,6 +34,7 @@ export const SocialProofSection = () => {
       quote:
         'Financial barriers should not determine educational outcomes. We are making world-class guidance accessible to every family.',
       linkedin: 'https://www.linkedin.com/in/alexander-amaral-8a1743288/',
+      email: 'alex@reachadmissions.app',
       image: '/alex.jpeg',
       initials: 'AA',
     },
@@ -42,6 +45,7 @@ export const SocialProofSection = () => {
       quote:
         'Every student deserves a fair shot at their dream schools. We are building the tools to make that possible.',
       linkedin: 'https://www.linkedin.com/in/deankaduboski/',
+      email: 'dean@reachadmissions.app',
       image: '/dean.jpeg',
       initials: 'DK',
     },
@@ -98,16 +102,26 @@ export const SocialProofSection = () => {
                 <p className="text-reach-blue font-semibold mb-1">{founder.role}</p>
                 <p className="text-sm text-gray-600 mb-4">{founder.credentials}</p>
                 <p className="text-gray-700 italic mb-4 flex-1">"{founder.quote}"</p>
-                <a
-                  href={founder.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center text-reach-blue hover:text-reach-purple transition-colors"
-                  aria-label={`${founder.name} LinkedIn profile`}
-                >
-                  <Linkedin size={20} className="mr-2" />
-                  Connect
-                </a>
+                <div className="flex flex-wrap gap-3">
+                  <a
+                    href={founder.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-reach-blue hover:text-reach-purple transition-colors"
+                    aria-label={`${founder.name} LinkedIn profile`}
+                  >
+                    <Linkedin size={18} className="mr-1" />
+                    Connect
+                  </a>
+                  <a
+                    href={`mailto:${founder.email}`}
+                    className="inline-flex items-center text-reach-blue hover:text-reach-purple transition-colors"
+                    aria-label={`Email ${founder.name}`}
+                  >
+                    <Mail size={18} className="mr-1" />
+                    Email
+                  </a>
+                </div>
               </Card>
             </motion.div>
           ))}

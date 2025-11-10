@@ -67,10 +67,10 @@ export const Footer = () => {
               </a>
             </div>
             <a
-              href="mailto:hello@reachadmissions.app"
+              href="mailto:team@reachadmissions.app"
               className="text-gray-400 hover:text-white transition-colors"
             >
-              hello@reachadmissions.app
+              team@reachadmissions.app
             </a>
           </div>
         </div>
