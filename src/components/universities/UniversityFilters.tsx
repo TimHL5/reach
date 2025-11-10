@@ -13,7 +13,7 @@ export const UniversityFilters = ({ filters, onFilterChange, universities }: Fil
     onFilterChange({
       country: 'all',
       state: 'all',
-      maxTuition: 100000,
+      maxTuition: 200000, // Increased from 100k to 200k to not filter by default
       minAcceptance: 0,
       maxAcceptance: 100,
       minEnrollment: 0,
@@ -80,7 +80,7 @@ export const UniversityFilters = ({ filters, onFilterChange, universities }: Fil
         <input
           type="range"
           min="0"
-          max="100000"
+          max="200000"
           step="5000"
           value={filters.maxTuition}
           onChange={(e) => onFilterChange({ ...filters, maxTuition: Number(e.target.value) })}

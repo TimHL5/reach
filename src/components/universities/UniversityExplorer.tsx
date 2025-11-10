@@ -16,7 +16,7 @@ export const UniversityExplorer = () => {
   const [filters, setFilters] = useState<FilterState>({
     country: 'all',
     state: 'all',
-    maxTuition: 100000,
+    maxTuition: 200000, // Increased from 100k to 200k to not filter by default
     minAcceptance: 0,
     maxAcceptance: 100,
     minEnrollment: 0,
