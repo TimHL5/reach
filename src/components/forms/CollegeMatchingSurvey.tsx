@@ -91,12 +91,29 @@ export const CollegeMatchingSurvey = () => {
         created_at: new Date().toISOString(),
       };
 
-      const { error } = await supabase
+      // Save to Supabase
+      const { data, error } = await supabase
         .from('survey_responses')
         // @ts-expect-error - Survey table type not properly inferred
-        .insert(surveyPayload);
+        .insert(surveyPayload)
+        .select()
+        .single();
 
       if (error) throw error;
+
+      // Trigger AI recommendations in background
+      // This calls the serverless function to generate matches and send email
+      fetch('/api/generate-matches', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...surveyPayload,
+          id: (data as any)?.id,
+        }),
+      }).catch(err => {
+        // Log error but don't block user - recommendations will be sent async
+        console.error('Error triggering recommendations:', err);
+      });
 
       setIsComplete(true);
     } catch (error) {
