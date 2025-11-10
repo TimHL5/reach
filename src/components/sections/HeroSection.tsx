@@ -1,9 +1,12 @@
 import { motion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
-import { TallyButton } from '../ui/TallyButton';
+import { Button } from '../ui/Button';
 import { RotatingLogos } from '../interactive/RotatingLogos';
+import { useNavigate } from 'react-router-dom';
 
 export const HeroSection = () => {
+  const navigate = useNavigate();
+  
   const scrollToNext = () => {
     const nextSection = document.getElementById('problem');
     nextSection?.scrollIntoView({ behavior: 'smooth' });
@@ -59,11 +62,15 @@ export const HeroSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              <TallyButton variant="secondary" className="w-full sm:w-auto">
-                Join the Waitlist
-              </TallyButton>
+              <Button 
+                variant="secondary" 
+                className="w-full sm:w-auto"
+                onClick={() => router.push('/get-matched')}
+              >
+                Get My College Matches Free →
+              </Button>
               <p className="text-white/90 text-sm text-center sm:text-left">
-                Launching Spring 2026 • $199/year
+                5-minute survey • Instant AI recommendations
               </p>
             </motion.div>
           </motion.div>

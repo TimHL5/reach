@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { EmailInput } from './EmailInput';
 import { Button } from '../ui/Button';
 import { Check } from 'lucide-react';
+import { supabase } from '../../lib/supabase';
 
 export const WaitlistForm = () => {
   const [email, setEmail] = useState('');
@@ -16,14 +17,26 @@ export const WaitlistForm = () => {
 
     setIsSubmitting(true);
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    try {
+      // Save to Supabase waitlist table
+      const { error } = await supabase
+        .from('waitlist')
+        .insert([{ email, created_at: new Date().toISOString() }]);
 
-    // Here you would send to your backend/Airtable/etc
-    console.log('Submitted email:', email);
+      if (error) {
+        // If email already exists, that's okay - still show success
+        if (error.code !== '23505') { // 23505 = unique constraint violation
+          throw error;
+        }
+      }
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error('Error saving to waitlist:', error);
+      setIsSubmitting(false);
+      alert('Something went wrong. Please try again.');
+    }
   };
 
   if (isSubmitted) {
