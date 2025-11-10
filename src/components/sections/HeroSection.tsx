@@ -10,7 +10,7 @@ export const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-brand py-12 sm:py-0">
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-brand pt-20 pb-12 sm:py-0 lg:pt-0">
       <RotatingLogos />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

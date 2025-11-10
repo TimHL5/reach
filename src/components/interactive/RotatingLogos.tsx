@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
 const colleges = [
   { name: 'Harvard', logo: 'https://logo.clearbit.com/harvard.edu' },
@@ -19,30 +20,49 @@ const colleges = [
 ];
 
 export const RotatingLogos = () => {
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1024);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Adjust size and speed based on screen size
+  const isMobile = windowWidth < 768;
+  const radius = isMobile ? 150 : 250;
+  const logoSize = isMobile ? 48 : 64;
+  const containerSize = isMobile ? 400 : 600;
+  const rotationDuration = isMobile ? 90 : 60; // Slower on mobile
+
   return (
     <div className="absolute inset-0 overflow-hidden opacity-20 pointer-events-none">
       {/* Rotating circle of logos */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <motion.div
-          className="relative w-[600px] h-[600px]"
+          className="relative"
+          style={{ width: containerSize, height: containerSize }}
           animate={{ rotate: 360 }}
           transition={{
-            duration: 60,
+            duration: rotationDuration,
             repeat: Infinity,
             ease: 'linear',
           }}
         >
           {colleges.map((college, index) => {
             const angle = (index / colleges.length) * 360;
-            const radius = 250;
             const x = Math.cos((angle * Math.PI) / 180) * radius;
             const y = Math.sin((angle * Math.PI) / 180) * radius;
 
             return (
               <div
                 key={college.name}
-                className="absolute top-1/2 left-1/2 w-16 h-16 -ml-8 -mt-8"
+                className="absolute top-1/2 left-1/2"
                 style={{
+                  width: logoSize,
+                  height: logoSize,
+                  marginLeft: -logoSize / 2,
+                  marginTop: -logoSize / 2,
                   transform: `translate(${x}px, ${y}px)`,
                 }}
               >
@@ -50,7 +70,8 @@ export const RotatingLogos = () => {
                   <img
                     src={college.logo}
                     alt={college.name}
-                    className="w-12 h-12 object-contain"
+                    className="object-contain"
+                    style={{ width: logoSize * 0.75, height: logoSize * 0.75 }}
                   />
                 </div>
               </div>
