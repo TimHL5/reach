@@ -87,12 +87,11 @@ export const HeroSection = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <div className="relative w-full max-w-[600px]">
-              <img
-                src="https://www.bc.edu/content/dam/bc1/offices/alumni/images/Homepage/gasson-summer.jpg"
-                alt="Boston College Gasson Hall"
-                className="w-full h-auto rounded-2xl shadow-2xl"
-              />
+            <img
+              src="/gasson.jpg"
+              alt="Boston College Gasson Hall"
+              className="w-full h-auto rounded-2xl shadow-2xl"
+            />
               {/* Subtle overlay to blend with gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 to-transparent rounded-2xl" />
             </div>
