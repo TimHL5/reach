@@ -1,203 +1,133 @@
 import { useEffect, useState } from 'react';
-import { motion, useAnimation } from 'framer-motion';
+import { motion } from 'framer-motion';
 
+// 20 top universities with logo URLs
 const colleges = [
-  { name: 'Harvard University', domain: 'harvard.edu', initials: 'H', color: '#A51C30' },
-  { name: 'Stanford University', domain: 'stanford.edu', initials: 'S', color: '#8C1515' },
-  { name: 'MIT', domain: 'mit.edu', initials: 'MIT', color: '#A31F34' },
-  { name: 'Yale University', domain: 'yale.edu', initials: 'Y', color: '#00356B' },
-  { name: 'Princeton University', domain: 'princeton.edu', initials: 'P', color: '#FF8F00' },
-  { name: 'Columbia University', domain: 'columbia.edu', initials: 'C', color: '#B9D9EB' },
-  { name: 'University of Pennsylvania', domain: 'upenn.edu', initials: 'Penn', color: '#011F5B' },
-  { name: 'Duke University', domain: 'duke.edu', initials: 'D', color: '#012169' },
-  { name: 'Northwestern University', domain: 'northwestern.edu', initials: 'NU', color: '#4E2A84' },
-  { name: 'Johns Hopkins', domain: 'jhu.edu', initials: 'JHU', color: '#002D72' },
-  { name: 'Brown University', domain: 'brown.edu', initials: 'B', color: '#4E3629' },
-  { name: 'Cornell University', domain: 'cornell.edu', initials: 'C', color: '#B31B1B' },
-  { name: 'UC Berkeley', domain: 'berkeley.edu', initials: 'UCB', color: '#003262' },
-  { name: 'UCLA', domain: 'ucla.edu', initials: 'UCLA', color: '#2774AE' },
-  { name: 'USC', domain: 'usc.edu', initials: 'USC', color: '#990000' },
-  { name: 'NYU', domain: 'nyu.edu', initials: 'NYU', color: '#57068C' },
-  { name: 'Boston College', domain: 'bc.edu', initials: 'BC', color: '#8A1538' },
-  { name: 'Georgetown', domain: 'georgetown.edu', initials: 'GT', color: '#041E42' },
-  { name: 'University of Michigan', domain: 'umich.edu', initials: 'UM', color: '#00274C' },
-  { name: 'Carnegie Mellon', domain: 'cmu.edu', initials: 'CMU', color: '#C41230' },
+  { name: 'Harvard', logo: 'https://logo.clearbit.com/harvard.edu', color: '#A51C30' },
+  { name: 'Stanford', logo: 'https://logo.clearbit.com/stanford.edu', color: '#8C1515' },
+  { name: 'MIT', logo: 'https://logo.clearbit.com/mit.edu', color: '#A31F34' },
+  { name: 'Yale', logo: 'https://logo.clearbit.com/yale.edu', color: '#00356B' },
+  { name: 'Princeton', logo: 'https://logo.clearbit.com/princeton.edu', color: '#E87722' },
+  { name: 'Columbia', logo: 'https://logo.clearbit.com/columbia.edu', color: '#B9D9EB' },
+  { name: 'Penn', logo: 'https://logo.clearbit.com/upenn.edu', color: '#011F5B' },
+  { name: 'Duke', logo: 'https://logo.clearbit.com/duke.edu', color: '#012169' },
+  { name: 'Northwestern', logo: 'https://logo.clearbit.com/northwestern.edu', color: '#4E2A84' },
+  { name: 'Johns Hopkins', logo: 'https://logo.clearbit.com/jhu.edu', color: '#002D72' },
+  { name: 'Brown', logo: 'https://logo.clearbit.com/brown.edu', color: '#4E3629' },
+  { name: 'Cornell', logo: 'https://logo.clearbit.com/cornell.edu', color: '#B31B1B' },
+  { name: 'UC Berkeley', logo: 'https://logo.clearbit.com/berkeley.edu', color: '#003262' },
+  { name: 'UCLA', logo: 'https://logo.clearbit.com/ucla.edu', color: '#2D68C4' },
+  { name: 'USC', logo: 'https://logo.clearbit.com/usc.edu', color: '#990000' },
+  { name: 'NYU', logo: 'https://logo.clearbit.com/nyu.edu', color: '#57068C' },
+  { name: 'Boston College', logo: 'https://logo.clearbit.com/bc.edu', color: '#98002E' },
+  { name: 'Georgetown', logo: 'https://logo.clearbit.com/georgetown.edu', color: '#041E42' },
+  { name: 'Michigan', logo: 'https://logo.clearbit.com/umich.edu', color: '#00274C' },
+  { name: 'Carnegie Mellon', logo: 'https://logo.clearbit.com/cmu.edu', color: '#C41230' }
 ];
 
 export const CollegeLogoAnimation = () => {
-  const [animationPhase, setAnimationPhase] = useState<'orbit' | 'converge' | 'dot'>('orbit');
-  const controls = useAnimation();
+  const [isConverging, setIsConverging] = useState(false);
+  const [rotationAngle, setRotationAngle] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== 'undefined' ? window.innerWidth : 1024
+  );
 
   useEffect(() => {
-    const runAnimation = async () => {
-      // Phase 1: Orbit for 15 seconds (3 rotations at 5 seconds each)
-      setAnimationPhase('orbit');
-      await controls.start({
-        rotate: 1080, // 3 full rotations (360 * 3)
-        transition: { duration: 15, ease: 'linear' },
-      });
+    // Handle window resize for responsive radius
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
 
-      // Phase 2: Converge to center
-      setAnimationPhase('converge');
-      await new Promise(resolve => setTimeout(resolve, 1500));
+    // Continuous rotation - 360 degrees in 10 seconds = 0.36 degrees per 10ms
+    const rotationInterval = setInterval(() => {
+      setRotationAngle(prev => (prev + 0.36) % 360);
+    }, 10);
 
-      // Phase 3: Show dot
-      setAnimationPhase('dot');
-      await new Promise(resolve => setTimeout(resolve, 2000));
+    // Trigger convergence after 20 seconds (2 full rotations)
+    const convergenceTimer = setTimeout(() => {
+      setIsConverging(true);
 
-      // Reset and loop
-      controls.set({ rotate: 0 });
-      runAnimation();
+      // Reset animation after convergence completes (2.5s convergence + 2s pause)
+      setTimeout(() => {
+        setIsConverging(false);
+        setRotationAngle(0);
+      }, 4500);
+    }, 20000);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      clearInterval(rotationInterval);
+      clearTimeout(convergenceTimer);
     };
+  }, []);
 
-    runAnimation();
-  }, [controls]);
+  // Responsive sizing
+  const radius = windowWidth < 768 ? 150 : 350;
+  const containerSize = radius * 2 + 160; // radius * 2 + logo size (80px) + padding
 
   return (
     <div
-      className="relative w-full h-[500px] md:h-[600px] flex items-center justify-center"
+      className="relative flex items-center justify-center"
+      style={{ width: `${containerSize}px`, height: `${containerSize}px` }}
       aria-label="Animation showing top college logos orbiting and converging"
       role="img"
     >
       {/* Orbiting logos */}
-      <div className="relative w-[300px] h-[300px] md:w-[500px] md:h-[500px]">
+      <div
+        className="relative"
+        style={{ width: `${containerSize}px`, height: `${containerSize}px` }}
+      >
         {colleges.map((college, index) => {
-          const angle = (index / colleges.length) * 360;
-          const radius = window.innerWidth < 768 ? 120 : 200;
-          const x = Math.cos((angle * Math.PI) / 180) * radius;
-          const y = Math.sin((angle * Math.PI) / 180) * radius;
+          // Calculate position on circle
+          const angleOffset = (index / colleges.length) * 360;
+          const currentAngle = rotationAngle + angleOffset;
+          const radian = (currentAngle * Math.PI) / 180;
+
+          const x = Math.cos(radian) * radius;
+          const y = Math.sin(radian) * radius;
 
           return (
             <motion.div
               key={college.name}
               className="absolute top-1/2 left-1/2"
               style={{
-                x: x - 20,
-                y: y - 20,
+                x: isConverging ? 0 : x,
+                y: isConverging ? 0 : y,
+                marginLeft: '-40px', // Center the 80px logo
+                marginTop: '-40px',
               }}
-              animate={
-                animationPhase === 'orbit'
-                  ? {
-                      rotate: [0, 360],
-                      opacity: [0.7, 1, 0.7],
-                    }
-                  : animationPhase === 'converge'
-                  ? {
-                      x: -20,
-                      y: -20,
-                      scale: 0,
-                      opacity: 0,
-                    }
-                  : {
-                      x: -20,
-                      y: -20,
-                      scale: 0,
-                      opacity: 0,
-                    }
-              }
-              transition={
-                animationPhase === 'orbit'
-                  ? {
-                      rotate: {
-                        duration: 15,
-                        ease: 'linear',
-                        repeat: 0,
-                      },
-                      opacity: {
-                        duration: 5,
-                        ease: 'easeInOut',
-                        repeat: 2,
-                      },
-                    }
-                  : {
-                      duration: 1.5,
-                      ease: 'easeInOut',
-                    }
-              }
+              animate={{
+                scale: isConverging ? 0.1 : 1,
+                opacity: isConverging ? 0 : 1,
+              }}
+              transition={{
+                duration: isConverging ? 2.5 : 0,
+                ease: 'easeInOut',
+              }}
             >
-              <CollegeLogo college={college} />
+              {/* Logo container */}
+              <div className="w-20 h-20 rounded-full bg-white shadow-xl flex items-center justify-center overflow-hidden">
+                <img
+                  src={college.logo}
+                  alt={`${college.name} logo`}
+                  className="w-14 h-14 object-contain"
+                  onError={(e) => {
+                    // Fallback to colored circle with initial
+                    const target = e.currentTarget;
+                    target.style.display = 'none';
+                    const parent = target.parentElement;
+                    if (parent) {
+                      parent.style.backgroundColor = college.color;
+                      parent.innerHTML = `<span class="text-white font-bold text-xl">${college.name.charAt(0)}</span>`;
+                    }
+                  }}
+                  loading="lazy"
+                />
+              </div>
             </motion.div>
           );
         })}
-
-        {/* Center dot that appears after convergence */}
-        {animationPhase === 'dot' && (
-          <motion.div
-            className="absolute top-1/2 left-1/2 w-3 h-3 md:w-4 md:h-4 rounded-full bg-white shadow-lg"
-            style={{ x: -6, y: -6 }}
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-          />
-        )}
       </div>
 
-      {/* "reach." text that appears with the dot */}
-      {animationPhase === 'dot' && (
-        <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-        >
-          <span className="text-4xl md:text-6xl font-bold text-white">
-            reach<span className="text-white">.</span>
-          </span>
-        </motion.div>
-      )}
-    </div>
-  );
-};
-
-interface CollegeLogoProps {
-  college: {
-    name: string;
-    domain: string;
-    initials: string;
-    color: string;
-  };
-}
-
-const CollegeLogo = ({ college }: CollegeLogoProps) => {
-  const [imageError, setImageError] = useState(false);
-  const logoUrl = `https://logo.clearbit.com/${college.domain}`;
-
-  // Check for reduced motion preference
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (prefersReducedMotion) {
-    return (
-      <div
-        className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white shadow-lg flex items-center justify-center text-xs font-bold"
-        style={{ color: college.color }}
-        title={college.name}
-      >
-        {college.initials}
-      </div>
-    );
-  }
-
-  return (
-    <div
-      className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white shadow-lg flex items-center justify-center overflow-hidden"
-      title={college.name}
-    >
-      {!imageError ? (
-        <img
-          src={logoUrl}
-          alt={`${college.name} logo`}
-          className="w-6 h-6 md:w-8 md:h-8 object-contain"
-          onError={() => setImageError(true)}
-          loading="lazy"
-        />
-      ) : (
-        <span
-          className="text-xs md:text-sm font-bold"
-          style={{ color: college.color }}
-        >
-          {college.initials}
-        </span>
-      )}
     </div>
   );
 };
