@@ -22,6 +22,10 @@ export const UniversityExplorer = () => {
     minEnrollment: 0,
     maxEnrollment: 200000,
     type: 'all',
+    minSat: 400,
+    maxSat: 1600,
+    minAct: 1,
+    maxAct: 36,
   });
 
   // Fetch universities on mount
@@ -209,6 +213,30 @@ export const UniversityExplorer = () => {
     );
     if (beforeEnrollment !== result.length) {
       console.log('  After enrollment filter:', result.length);
+    }
+
+    // SAT score filter
+    const beforeSat = result.length;
+    result = result.filter(u =>
+      !u.average_sat || (
+        u.average_sat >= filters.minSat &&
+        u.average_sat <= filters.maxSat
+      )
+    );
+    if (beforeSat !== result.length) {
+      console.log('  After SAT filter:', result.length);
+    }
+
+    // ACT score filter
+    const beforeAct = result.length;
+    result = result.filter(u =>
+      !u.average_act || (
+        u.average_act >= filters.minAct &&
+        u.average_act <= filters.maxAct
+      )
+    );
+    if (beforeAct !== result.length) {
+      console.log('  After ACT filter:', result.length);
     }
 
     console.log('✅ Final filtered count:', result.length);

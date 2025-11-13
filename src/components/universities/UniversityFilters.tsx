@@ -19,6 +19,10 @@ export const UniversityFilters = ({ filters, onFilterChange, universities }: Fil
       minEnrollment: 0,
       maxEnrollment: 200000,
       type: 'all',
+      minSat: 400,
+      maxSat: 1600,
+      minAct: 1,
+      maxAct: 36,
     });
   };
 
@@ -135,6 +139,60 @@ export const UniversityFilters = ({ filters, onFilterChange, universities }: Fil
             step="1000"
             value={filters.maxEnrollment}
             onChange={(e) => onFilterChange({ ...filters, maxEnrollment: Number(e.target.value) })}
+            className="w-full"
+          />
+        </div>
+      </div>
+
+      {/* SAT Score Range */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          SAT Score: {filters.minSat} - {filters.maxSat}
+        </label>
+        <div className="space-y-2">
+          <input
+            type="range"
+            min="400"
+            max="1600"
+            step="10"
+            value={filters.minSat}
+            onChange={(e) => onFilterChange({ ...filters, minSat: Number(e.target.value) })}
+            className="w-full"
+          />
+          <input
+            type="range"
+            min="400"
+            max="1600"
+            step="10"
+            value={filters.maxSat}
+            onChange={(e) => onFilterChange({ ...filters, maxSat: Number(e.target.value) })}
+            className="w-full"
+          />
+        </div>
+      </div>
+
+      {/* ACT Score Range */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          ACT Score: {filters.minAct} - {filters.maxAct}
+        </label>
+        <div className="space-y-2">
+          <input
+            type="range"
+            min="1"
+            max="36"
+            step="1"
+            value={filters.minAct}
+            onChange={(e) => onFilterChange({ ...filters, minAct: Number(e.target.value) })}
+            className="w-full"
+          />
+          <input
+            type="range"
+            min="1"
+            max="36"
+            step="1"
+            value={filters.maxAct}
+            onChange={(e) => onFilterChange({ ...filters, maxAct: Number(e.target.value) })}
             className="w-full"
           />
         </div>

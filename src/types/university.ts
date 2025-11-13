@@ -48,4 +48,8 @@ export type FilterState = {
   minEnrollment: number;
   maxEnrollment: number;
   type: string;
+  minSat: number;
+  maxSat: number;
+  minAct: number;
+  maxAct: number;
 };
