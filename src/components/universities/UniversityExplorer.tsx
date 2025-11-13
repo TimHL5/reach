@@ -3,6 +3,7 @@ import { supabase } from '../../lib/supabase';
 import { SearchBar } from './SearchBar';
 import { UniversityFilters } from './UniversityFilters';
 import { UniversityCard } from './UniversityCard';
+import { SortDropdown } from './SortDropdown';
 import type { University, FilterState } from '../../types/university';
 import { Loader2 } from 'lucide-react';
 
@@ -22,6 +23,7 @@ export const UniversityExplorer = () => {
     minEnrollment: 0,
     maxEnrollment: 200000,
     type: 'all',
+    sortBy: 'none',
   });
 
   // Fetch universities on mount
@@ -212,6 +214,37 @@ export const UniversityExplorer = () => {
     }
 
     console.log('✅ Final filtered count:', result.length);
+
+    // Apply sorting
+    if (filters.sortBy !== 'none') {
+      console.log('🔄 Applying sorting:', filters.sortBy);
+      result = [...result].sort((a, b) => {
+        switch (filters.sortBy) {
+          case 'tuition-low-high':
+            return (a.tuition_out_state || Infinity) - (b.tuition_out_state || Infinity);
+          case 'tuition-high-low':
+            return (b.tuition_out_state || 0) - (a.tuition_out_state || 0);
+          case 'acceptance-low-high':
+            return (a.acceptance_rate || Infinity) - (b.acceptance_rate || Infinity);
+          case 'acceptance-high-low':
+            return (b.acceptance_rate || 0) - (a.acceptance_rate || 0);
+          case 'ranking-low-high':
+            // Lower rank number = better ranking
+            // Use US News rank as primary, fallback to other rankings
+            const rankA = a.us_news_rank || a.qs_world_rank || a.times_rank || a.forbes_rank || Infinity;
+            const rankB = b.us_news_rank || b.qs_world_rank || b.times_rank || b.forbes_rank || Infinity;
+            return rankA - rankB;
+          case 'ranking-high-low':
+            const rankA2 = a.us_news_rank || a.qs_world_rank || a.times_rank || a.forbes_rank || 0;
+            const rankB2 = b.us_news_rank || b.qs_world_rank || b.times_rank || b.forbes_rank || 0;
+            return rankB2 - rankA2;
+          default:
+            return 0;
+        }
+      });
+      console.log('✅ Sorting applied');
+    }
+
     setFilteredUniversities(result);
   }, [searchTerm, filters, universities]);
 
@@ -267,10 +300,14 @@ export const UniversityExplorer = () => {
 
           {/* University Grid */}
           <main className="w-full lg:w-3/4">
-            <div className="mb-6">
+            <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <p className="text-gray-600">
                 Showing <span className="font-semibold">{filteredUniversities.length.toLocaleString()}</span> of <span className="font-semibold">{universities.length.toLocaleString()}</span> universities
               </p>
+              <SortDropdown
+                value={filters.sortBy}
+                onChange={(sortBy) => setFilters({ ...filters, sortBy })}
+              />
             </div>
 
             {filteredUniversities.length === 0 ? (

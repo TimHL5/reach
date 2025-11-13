@@ -19,6 +19,7 @@ export const UniversityFilters = ({ filters, onFilterChange, universities }: Fil
       minEnrollment: 0,
       maxEnrollment: 200000,
       type: 'all',
+      sortBy: 'none',
     });
   };
 

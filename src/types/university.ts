@@ -39,6 +39,15 @@ export type University = {
   updated_at: string;
 };
 
+export type SortOption =
+  | 'none'
+  | 'tuition-low-high'
+  | 'tuition-high-low'
+  | 'acceptance-low-high'
+  | 'acceptance-high-low'
+  | 'ranking-low-high'
+  | 'ranking-high-low';
+
 export type FilterState = {
   country: string;
   state: string;
@@ -48,4 +57,5 @@ export type FilterState = {
   minEnrollment: number;
   maxEnrollment: number;
   type: string;
+  sortBy: SortOption;
 };
