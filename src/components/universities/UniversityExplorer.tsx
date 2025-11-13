@@ -12,6 +12,7 @@ export const UniversityExplorer = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [sortBy, setSortBy] = useState<string>('default');
 
   const [filters, setFilters] = useState<FilterState>({
     country: 'all',
@@ -212,8 +213,33 @@ export const UniversityExplorer = () => {
     }
 
     console.log('✅ Final filtered count:', result.length);
+
+    // Apply sorting
+    if (sortBy !== 'default') {
+      console.log('🔀 Applying sort:', sortBy);
+      result = [...result].sort((a, b) => {
+        switch (sortBy) {
+          case 'tuition-low':
+            return (a.tuition_out_state || Infinity) - (b.tuition_out_state || Infinity);
+          case 'tuition-high':
+            return (b.tuition_out_state || 0) - (a.tuition_out_state || 0);
+          case 'acceptance-low':
+            return (a.acceptance_rate || Infinity) - (b.acceptance_rate || Infinity);
+          case 'acceptance-high':
+            return (b.acceptance_rate || 0) - (a.acceptance_rate || 0);
+          case 'ranking-best':
+            // Lower rank number = better (e.g., #1 is best)
+            // If no rank, push to end (Infinity)
+            return (a.us_news_rank || Infinity) - (b.us_news_rank || Infinity);
+          default:
+            return 0;
+        }
+      });
+      console.log('  Sorted results:', result.length);
+    }
+
     setFilteredUniversities(result);
-  }, [searchTerm, filters, universities]);
+  }, [searchTerm, filters, universities, sortBy]);
 
   if (loading) {
     return (
@@ -267,10 +293,30 @@ export const UniversityExplorer = () => {
 
           {/* University Grid */}
           <main className="w-full lg:w-3/4">
-            <div className="mb-6">
+            <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <p className="text-gray-600">
                 Showing <span className="font-semibold">{filteredUniversities.length.toLocaleString()}</span> of <span className="font-semibold">{universities.length.toLocaleString()}</span> universities
               </p>
+
+              {/* Sort Dropdown */}
+              <div className="flex items-center gap-2">
+                <label htmlFor="sort-select" className="text-sm font-medium text-gray-700 whitespace-nowrap">
+                  Sort by:
+                </label>
+                <select
+                  id="sort-select"
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-reach-blue focus:border-transparent bg-white text-gray-900 text-sm"
+                >
+                  <option value="default">Default</option>
+                  <option value="tuition-low">Tuition (Low to High)</option>
+                  <option value="tuition-high">Tuition (High to Low)</option>
+                  <option value="acceptance-low">Acceptance Rate (Low to High)</option>
+                  <option value="acceptance-high">Acceptance Rate (High to Low)</option>
+                  <option value="ranking-best">Ranking (Best to Worst)</option>
+                </select>
+              </div>
             </div>
 
             {filteredUniversities.length === 0 ? (
