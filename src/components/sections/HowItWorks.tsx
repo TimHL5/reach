@@ -89,14 +89,14 @@ export const HowItWorks = () => {
 
         {/* Desktop: Horizontal Scroll Timeline */}
         <div className="hidden md:block">
-          <ContainerScroll className="h-[300vh]">
-            <ContainerSticky className="top-32 flex flex-nowrap gap-8">
+          <ContainerScroll className="h-[200vh] pb-32">
+            <ContainerSticky className="top-24 flex flex-nowrap gap-8 px-8">
               {APPLICATION_STAGES.map((stage, index) => (
                 <div key={stage.id} className="flex items-center gap-4">
                   <ProcessCard
                     itemsLength={APPLICATION_STAGES.length}
                     index={index}
-                    className="min-w-[500px] max-w-[500px] rounded-3xl overflow-hidden"
+                    className="min-w-[450px] max-w-[450px] rounded-3xl overflow-hidden"
                     variant="indigo"
                   >
                     {/* Card Number Badge */}

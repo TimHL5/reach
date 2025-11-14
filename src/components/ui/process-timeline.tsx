@@ -1,3 +1,4 @@
+import React from 'react';
 import { useScroll, useTransform, motion, MotionValue } from 'framer-motion';
 import type { ReactNode } from 'react';
 import { useRef, useEffect, useState } from 'react';
@@ -124,7 +125,7 @@ export const ProcessCard = ({
   const x = useTransform(
     scrollYProgress,
     [start, end],
-    [innerWidth ?? 0, -((width ?? 0) * index) + 64 * index]
+    [0, -((width ?? 0) * index) + 64 * index]
   );
 
   return (
@@ -171,6 +172,3 @@ export const ProcessCardBody = ({ children, className }: ProcessCardBodyProps) =
     </div>
   );
 };
-
-// Add React import at the top
-import React from 'react';
