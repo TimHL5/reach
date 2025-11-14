@@ -49,7 +49,7 @@ export const PricingSection = () => {
   );
 
   return (
-    <section id="pricing" className="section-spacing bg-gradient-to-b from-midnight via-black to-midnight relative overflow-hidden">
+    <section id="pricing" className="section-spacing bg-midnight relative overflow-hidden">
       <div className="container mx-auto px-6 md:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

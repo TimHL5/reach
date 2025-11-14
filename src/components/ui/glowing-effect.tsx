@@ -56,8 +56,8 @@ export const GlowingEffect: React.FC<GlowingEffectProps> = ({
   }, [disabled]);
 
   const gradientColor = variant === 'warm'
-    ? 'rgba(240, 147, 251, 0.6)'
-    : 'rgba(102, 126, 234, 0.6)';
+    ? 'rgba(139, 92, 246, 0.6)'
+    : 'rgba(43, 95, 237, 0.6)';
 
   return (
     <div

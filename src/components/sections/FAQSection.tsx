@@ -34,7 +34,7 @@ export const FAQSection = () => {
   ];
 
   return (
-    <section id="faq" className="section-spacing bg-gradient-to-b from-midnight via-black to-midnight">
+    <section id="faq" className="section-spacing bg-midnight">
       <div className="container mx-auto px-6 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

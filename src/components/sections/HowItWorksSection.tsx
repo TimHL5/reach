@@ -1,131 +1,114 @@
 import { motion } from 'framer-motion';
-import { VerticalCutReveal } from '../ui/vertical-cut-reveal';
+import { TrackIcon, BuildIcon, ApplyIcon, EnrollIcon } from '../ui/journey-icons';
 
 export const HowItWorksSection = () => {
-  const steps = [
+  const journeyStages = [
     {
-      number: '01',
-      title: 'You Write First',
-      description: 'Start with your story in your own words. We never write for you.',
+      icon: TrackIcon,
+      title: 'Track',
+      period: 'Freshman-Junior',
+      description: 'Monitor your academic progress, extracurriculars, and achievements as you build your foundation.',
     },
     {
-      number: '02',
-      title: 'AI Analyzes Deeply',
-      description: 'Get specific, actionable feedback on what works and what doesn\'t.',
+      icon: BuildIcon,
+      title: 'Build',
+      period: 'Junior-Senior',
+      description: 'Craft compelling essays and refine your story with AI-powered feedback that keeps your authentic voice.',
     },
     {
-      number: '03',
-      title: 'You Improve',
-      description: 'Revise with confidence. Your voice stays intact, just clearer.',
+      icon: ApplyIcon,
+      title: 'Apply',
+      period: 'Senior Fall',
+      description: 'Submit polished applications to your dream schools with confidence and track every deadline.',
+    },
+    {
+      icon: EnrollIcon,
+      title: 'Enroll',
+      period: 'Senior Spring',
+      description: 'Celebrate your acceptances and make the final decision on where you\'ll spend the next four years.',
     },
   ];
 
   return (
-    <section id="how-it-works" className="section-spacing bg-gradient-to-b from-black via-midnight to-black relative overflow-hidden">
+    <section id="journey" className="section-spacing bg-midnight relative overflow-hidden">
       <div className="container mx-auto px-6 md:px-8">
-        <div className="text-center mb-16 md:mb-24">
-          <VerticalCutReveal
-            splitBy="words"
-            staggerDuration={0.15}
-            staggerFrom="first"
-            reverse={false}
-            containerClassName="justify-center mb-8"
-            transition={{
-              type: 'spring',
-              stiffness: 250,
-              damping: 40,
-            }}
-            className="text-5xl md:text-6xl lg:text-7xl font-bold text-gradient-primary"
+        <div className="text-center mb-16 md:mb-20">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4"
+            style={{ color: '#FAFBFC' }}
           >
-            Your AI Copilot For College Applications
-          </VerticalCutReveal>
+            Your College Journey
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.33, 1, 0.68, 1] }}
+            className="text-lg md:text-xl"
+            style={{ color: 'rgba(250, 251, 252, 0.7)' }}
+          >
+            From freshman year to enrollment day, we're with you every step
+          </motion.p>
         </div>
 
-        {/* Three principles with timeline */}
-        <div className="max-w-4xl mx-auto">
-          <div className="relative">
-            {/* Vertical timeline line */}
-            <div className="absolute left-8 md:left-16 top-0 bottom-0 w-px bg-gradient-to-b from-reach-blue/0 via-reach-blue/50 to-reach-blue/0" />
+        {/* Journey Cards - Horizontal on desktop, vertical on mobile */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {journeyStages.map((stage, idx) => {
+            const IconComponent = stage.icon;
+            return (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-100px' }}
+                transition={{
+                  duration: 0.6,
+                  delay: idx * 0.15,
+                  ease: [0.33, 1, 0.68, 1],
+                }}
+                className="relative bg-gradient-to-b from-white/5 to-transparent border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 hover:scale-105"
+              >
+                {/* Icon */}
+                <div className="mb-6 flex justify-center">
+                  <IconComponent size={56} />
+                </div>
 
-            <div className="space-y-16 md:space-y-24">
-              {steps.map((step, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, x: -40 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: '-100px' }}
-                  transition={{
-                    duration: 0.8,
-                    delay: idx * 0.2,
-                    ease: [0.33, 1, 0.68, 1],
-                  }}
-                  className="relative flex items-start gap-8 md:gap-12"
+                {/* Title */}
+                <h3
+                  className="text-2xl font-bold mb-2 text-center"
+                  style={{ color: '#FAFBFC' }}
                 >
-                  {/* Number circle */}
-                  <div className="flex-shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-reach-blue to-reach-purple flex items-center justify-center shadow-[0_0_40px_rgba(102,126,234,0.4)]">
-                    <span className="text-xl md:text-2xl font-bold">{step.number}</span>
-                  </div>
+                  {stage.title}
+                </h3>
 
-                  {/* Content */}
-                  <div className="flex-1 pt-2">
-                    <h3 className="text-2xl md:text-3xl font-bold mb-3 tracking-tight">
-                      {step.title}
-                    </h3>
-                    <p className="text-lg md:text-xl text-white/70 leading-relaxed">
-                      {step.description}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
+                {/* Period */}
+                <p
+                  className="text-sm mb-4 text-center font-medium"
+                  style={{ color: 'rgba(250, 251, 252, 0.6)' }}
+                >
+                  {stage.period}
+                </p>
+
+                {/* Description */}
+                <p
+                  className="text-base leading-relaxed text-center"
+                  style={{ color: 'rgba(250, 251, 252, 0.75)' }}
+                >
+                  {stage.description}
+                </p>
+
+                {/* Connector line (hidden on mobile, shown between cards on desktop) */}
+                {idx < journeyStages.length - 1 && (
+                  <div className="hidden lg:block absolute top-1/2 -right-4 w-8 h-px bg-gradient-to-r from-white/20 to-transparent" />
+                )}
+              </motion.div>
+            );
+          })}
         </div>
-
-        {/* Simple visual mockup suggestion */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.8, delay: 0.6, ease: [0.33, 1, 0.68, 1] }}
-          className="mt-24 max-w-5xl mx-auto glass-card p-8 md:p-12"
-        >
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Left: Essay preview */}
-            <div className="space-y-4">
-              <div className="text-sm font-semibold text-white/50 tracking-wide uppercase">Your Draft</div>
-              <div className="space-y-3 text-white/60 font-mono text-sm leading-relaxed">
-                <p className="hover:bg-white/5 p-2 rounded transition-colors">
-                  Growing up, I always loved science...
-                </p>
-                <p className="hover:bg-white/5 p-2 rounded transition-colors">
-                  My passion for learning drove me to...
-                </p>
-                <p className="hover:bg-white/5 p-2 rounded transition-colors">
-                  I believe this experience taught me...
-                </p>
-              </div>
-            </div>
-
-            {/* Right: AI feedback */}
-            <div className="space-y-4">
-              <div className="text-sm font-semibold text-white/50 tracking-wide uppercase">AI Feedback</div>
-              <div className="space-y-4">
-                <div className="p-4 rounded-xl bg-gradient-to-br from-reach-blue/10 to-reach-purple/10 border border-white/10">
-                  <div className="text-xs font-semibold text-reach-blue mb-2">Show, don't tell</div>
-                  <p className="text-sm text-white/80">
-                    "Loved science" is vague. What specific moment sparked this passion?
-                  </p>
-                </div>
-                <div className="p-4 rounded-xl bg-gradient-to-br from-reach-blue/10 to-reach-purple/10 border border-white/10">
-                  <div className="text-xs font-semibold text-reach-blue mb-2">Add specificity</div>
-                  <p className="text-sm text-white/80">
-                    What did you actually do? Include concrete details.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

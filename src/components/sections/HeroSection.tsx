@@ -5,8 +5,8 @@ import { LiquidButton } from '../ui/liquid-glass-button';
 
 export const HeroSection = () => {
   const scrollToNext = () => {
-    const nextSection = document.getElementById('problem');
-    nextSection?.scrollIntoView({ behavior: 'smooth' });
+    const journeySection = document.getElementById('journey');
+    journeySection?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const headline = "Remember staring at your Common App essay at 2am, wondering if it's good enough?";
@@ -92,10 +92,17 @@ export const HeroSection = () => {
 
       <motion.button
         onClick={scrollToNext}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 text-white/50 hover:text-white/80 transition-colors z-20 hidden md:flex flex-col items-center gap-2"
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 transition-all duration-300 z-20 hidden md:flex flex-col items-center gap-2"
+        style={{
+          color: 'rgba(250, 251, 252, 0.8)',
+        }}
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-        aria-label="Scroll to next section"
+        whileHover={{
+          scale: 1.1,
+          color: 'rgba(250, 251, 252, 1)',
+        }}
+        aria-label="Scroll to journey section"
       >
         <span className="text-sm tracking-wide">Scroll to explore</span>
         <ArrowDown size={20} />

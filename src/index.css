@@ -1,32 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Inter:wght@400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    /* Backgrounds - Deep, sophisticated blacks and whites */
-    --bg-primary: #000000;
-    --bg-secondary: #0a0a0a;
-    --bg-tertiary: #fafafa;
-    --bg-card: #0d0d0d;
+    /* Reach Brand Colors */
+    --reach-blue: #2B5FED;
+    --reach-purple: #8B5CF6;
+    --midnight: #0A1628;
+    --cloud-white: #FAFBFC;
+
+    /* Backgrounds - Reach Brand */
+    --bg-primary: #0A1628;
+    --bg-secondary: #0d1a2d;
+    --bg-tertiary: #FAFBFC;
+    --bg-card: #0f1f35;
 
     /* Text - Hierarchy through opacity */
-    --text-primary: rgba(255, 255, 255, 0.95);
-    --text-secondary: rgba(255, 255, 255, 0.70);
-    --text-tertiary: rgba(255, 255, 255, 0.45);
-    --text-inverse: rgba(0, 0, 0, 0.95);
+    --text-primary: rgba(250, 251, 252, 0.95);
+    --text-secondary: rgba(250, 251, 252, 0.70);
+    --text-tertiary: rgba(250, 251, 252, 0.45);
+    --text-inverse: rgba(10, 22, 40, 0.95);
 
     /* Borders & Dividers */
-    --border-subtle: rgba(255, 255, 255, 0.08);
-    --border-medium: rgba(255, 255, 255, 0.12);
+    --border-subtle: rgba(250, 251, 252, 0.08);
+    --border-medium: rgba(250, 251, 252, 0.12);
 
-    /* Gradient Colors */
-    --gradient-primary: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
-    --gradient-warm: linear-gradient(135deg, #F093FB 0%, #F5576C 100%);
+    /* Gradient Colors - Reach Brand */
+    --gradient-primary: linear-gradient(135deg, #2B5FED 0%, #8B5CF6 100%);
+    --gradient-warm: linear-gradient(135deg, #8B5CF6 0%, #2B5FED 100%);
 
-    /* Glow Effects */
-    --glow-blue: radial-gradient(circle at center, rgba(102, 126, 234, 0.15) 0%, transparent 70%);
-    --glow-purple: radial-gradient(circle at center, rgba(118, 75, 162, 0.12) 0%, transparent 70%);
+    /* Glow Effects - Reach Brand */
+    --glow-blue: radial-gradient(circle at center, rgba(43, 95, 237, 0.15) 0%, transparent 70%);
+    --glow-purple: radial-gradient(circle at center, rgba(139, 92, 246, 0.12) 0%, transparent 70%);
 
     /* Spacing - 8px grid system */
     --space-1: 0.5rem;
@@ -58,26 +66,29 @@
   }
 
   body {
-    @apply m-0 min-h-screen bg-black text-white;
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    @apply m-0 min-h-screen text-white;
+    background-color: var(--midnight);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 400;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-semibold;
+    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 700;
     letter-spacing: -0.02em;
   }
 }
 
 @layer components {
   .text-gradient-primary {
-    background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+    background: linear-gradient(135deg, #2B5FED 0%, #8B5CF6 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .text-gradient-warm {
-    background: linear-gradient(135deg, #F093FB 0%, #F5576C 100%);
+    background: linear-gradient(135deg, #8B5CF6 0%, #2B5FED 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

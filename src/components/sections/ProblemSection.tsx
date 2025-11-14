@@ -51,7 +51,7 @@ export const ProblemSection = () => {
   const isTextInView = useInView(textRef, { once: true, margin: '-100px' });
 
   return (
-    <section id="problem" className="section-spacing bg-black relative overflow-hidden">
+    <section id="problem" className="section-spacing bg-midnight relative overflow-hidden">
       <div className="container mx-auto px-6 md:px-8">
         <motion.div
           ref={textRef}

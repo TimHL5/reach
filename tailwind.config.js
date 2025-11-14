@@ -7,19 +7,21 @@ export default {
   theme: {
     extend: {
       colors: {
-        'reach-blue': '#667EEA',
-        'reach-purple': '#764BA2',
-        'midnight': '#0A0A0A',
+        'reach-blue': '#2B5FED',
+        'reach-purple': '#8B5CF6',
+        'midnight': '#0A1628',
+        'cloud-white': '#FAFBFC',
         'success': '#10B981',
         'warning': '#F59E0B',
         'error': '#EF4444',
       },
       fontFamily: {
-        sans: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        display: ['Space Grotesk', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
       },
       backgroundImage: {
-        'gradient-brand': 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)',
-        'gradient-warm': 'linear-gradient(135deg, #F093FB 0%, #F5576C 100%)',
+        'gradient-brand': 'linear-gradient(135deg, #2B5FED 0%, #8B5CF6 100%)',
+        'gradient-warm': 'linear-gradient(135deg, #8B5CF6 0%, #2B5FED 100%)',
       },
       fontSize: {
         'xs': '0.75rem',
@@ -70,8 +72,8 @@ export default {
           '50%': { opacity: '0.95', transform: 'scale(1.01)' },
         },
         glow: {
-          '0%, 100%': { boxShadow: '0 0 20px rgba(102, 126, 234, 0.3)' },
-          '50%': { boxShadow: '0 0 40px rgba(102, 126, 234, 0.6)' },
+          '0%, 100%': { boxShadow: '0 0 20px rgba(43, 95, 237, 0.3)' },
+          '50%': { boxShadow: '0 0 40px rgba(43, 95, 237, 0.6)' },
         },
       },
       transitionTimingFunction: {

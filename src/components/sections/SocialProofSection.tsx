@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Linkedin } from 'lucide-react';
 import { GlowingEffect } from '../ui/glowing-effect';
 
 export const SocialProofSection = () => {
@@ -8,18 +9,28 @@ export const SocialProofSection = () => {
       role: 'Co-Founder',
       image: '/tim.png',
       initials: 'TL',
+      linkedin: 'https://www.linkedin.com/in/timothy-liu-reach/',
     },
     {
       name: 'Ethan Foreman',
       role: 'Co-Founder',
       image: '/ethan.png',
       initials: 'EF',
+      linkedin: 'https://www.linkedin.com/in/ethan-foreman/',
     },
     {
       name: 'Alex Amaral',
       role: 'Co-Founder',
       image: '/alex.png',
       initials: 'AA',
+      linkedin: 'https://www.linkedin.com/in/alex-amaral/',
+    },
+    {
+      name: 'Dean Stratakos',
+      role: 'Co-Founder',
+      image: '/dean.png',
+      initials: 'DS',
+      linkedin: 'https://www.linkedin.com/in/dean-kaduboski-5b0a161a7/',
     },
   ];
 
@@ -30,7 +41,7 @@ export const SocialProofSection = () => {
   ];
 
   return (
-    <section id="social-proof" className="section-spacing bg-black">
+    <section id="social-proof" className="section-spacing bg-midnight">
       <div className="container mx-auto px-6 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -64,7 +75,7 @@ export const SocialProofSection = () => {
 
             <div className="relative z-10">
               {/* Founder photos */}
-              <div className="flex justify-center gap-6 md:gap-8 mb-12">
+              <div className="flex flex-wrap justify-center gap-6 md:gap-8 mb-12">
                 {founders.map((founder, idx) => (
                   <motion.div
                     key={idx}
@@ -74,7 +85,7 @@ export const SocialProofSection = () => {
                     transition={{ delay: idx * 0.1, ease: [0.33, 1, 0.68, 1] }}
                     className="text-center"
                   >
-                    <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-white/20 mb-4 mx-auto bg-gradient-to-br from-reach-blue to-reach-purple flex items-center justify-center text-white text-2xl font-bold">
+                    <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-reach-blue mb-3 mx-auto bg-gradient-to-br from-reach-blue to-reach-purple flex items-center justify-center text-white text-2xl font-bold">
                       {founder.image ? (
                         <img
                           src={founder.image}
@@ -92,8 +103,22 @@ export const SocialProofSection = () => {
                         founder.initials
                       )}
                     </div>
-                    <p className="text-sm font-medium text-white/90">{founder.name}</p>
-                    <p className="text-xs text-white/50">{founder.role}</p>
+                    <p className="text-sm font-medium text-white/90 mb-2">{founder.name}</p>
+                    <p className="text-xs text-white/50 mb-2">{founder.role}</p>
+                    {founder.linkedin && (
+                      <a
+                        href={founder.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center"
+                        aria-label={`${founder.name}'s LinkedIn`}
+                      >
+                        <Linkedin
+                          size={24}
+                          className="text-reach-blue hover:text-reach-purple transition-colors duration-300"
+                        />
+                      </a>
+                    )}
                   </motion.div>
                 ))}
               </div>
@@ -108,7 +133,7 @@ export const SocialProofSection = () => {
               </blockquote>
 
               <p className="text-center text-white/60">
-                <span className="font-medium">Tim Liu, Ethan Foreman & Alex Amaral</span>
+                <span className="font-medium">Tim Liu, Ethan Foreman, Alex Amaral & Dean Stratakos</span>
                 <br />
                 Boston College '26
               </p>
