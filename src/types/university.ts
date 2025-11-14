@@ -82,6 +82,8 @@ export type FilterState = {
   country: string;
   state: string;
   maxTuition: number;
+  minTotalCost: number;
+  maxTotalCost: number;
   minAcceptance: number;
   maxAcceptance: number;
   minEnrollment: number;

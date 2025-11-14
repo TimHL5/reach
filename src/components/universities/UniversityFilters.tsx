@@ -14,6 +14,8 @@ export const UniversityFilters = ({ filters, onFilterChange, universities }: Fil
       country: 'all',
       state: 'all',
       maxTuition: 200000, // Increased from 100k to 200k to not filter by default
+      minTotalCost: 0,
+      maxTotalCost: 300000,
       minAcceptance: 0,
       maxAcceptance: 100,
       minEnrollment: 0,
@@ -86,6 +88,46 @@ export const UniversityFilters = ({ filters, onFilterChange, universities }: Fil
           onChange={(e) => onFilterChange({ ...filters, maxTuition: Number(e.target.value) })}
           className="w-full"
         />
+        <p className="text-xs text-gray-500 mt-1">Out-of-state tuition only</p>
+      </div>
+
+      {/* Total Cost Range (Tuition + Room & Board + Books) */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Total Annual Cost
+        </label>
+        <div className="text-sm text-gray-600 mb-2">
+          ${filters.minTotalCost.toLocaleString()} - ${filters.maxTotalCost.toLocaleString()}
+        </div>
+        <div className="space-y-2">
+          <div>
+            <label className="text-xs text-gray-500">Minimum</label>
+            <input
+              type="range"
+              min="0"
+              max="300000"
+              step="5000"
+              value={filters.minTotalCost}
+              onChange={(e) => onFilterChange({ ...filters, minTotalCost: Number(e.target.value) })}
+              className="w-full"
+            />
+          </div>
+          <div>
+            <label className="text-xs text-gray-500">Maximum</label>
+            <input
+              type="range"
+              min="0"
+              max="300000"
+              step="5000"
+              value={filters.maxTotalCost}
+              onChange={(e) => onFilterChange({ ...filters, maxTotalCost: Number(e.target.value) })}
+              className="w-full"
+            />
+          </div>
+        </div>
+        <p className="text-xs text-gray-500 mt-1">
+          Includes tuition, room & board, and books
+        </p>
       </div>
 
       {/* Acceptance Rate Range */}

@@ -17,6 +17,8 @@ export const UniversityExplorer = () => {
     country: 'all',
     state: 'all',
     maxTuition: 200000, // Increased from 100k to 200k to not filter by default
+    minTotalCost: 0,
+    maxTotalCost: 300000, // Max total cost (tuition + room & board + books)
     minAcceptance: 0,
     maxAcceptance: 100,
     minEnrollment: 0,
@@ -185,6 +187,27 @@ export const UniversityExplorer = () => {
     );
     if (beforeTuition !== result.length) {
       console.log('  After tuition filter:', result.length);
+    }
+
+    // Total cost filter (tuition + room & board + books)
+    const beforeTotalCost = result.length;
+    result = result.filter(u => {
+      // Calculate total cost if data is available
+      // Use out-of-state tuition as default, fall back to in-state if not available
+      const tuition = u.tuition_out_state || u.tuition_in_state || 0;
+      const roomBoard = u.room_and_board || 0;
+      const books = u.books_supplies || 0;
+      const totalCost = tuition + roomBoard + books;
+
+      // Only filter if we have at least tuition data
+      if (!u.tuition_out_state && !u.tuition_in_state) {
+        return true; // Include universities with no cost data
+      }
+
+      return totalCost >= filters.minTotalCost && totalCost <= filters.maxTotalCost;
+    });
+    if (beforeTotalCost !== result.length) {
+      console.log('  After total cost filter:', result.length);
     }
 
     // Acceptance rate filter
