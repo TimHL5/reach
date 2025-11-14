@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 import { AuroraBackground } from '../ui/aurora-background';
-import { TallyButton } from '../ui/TallyButton';
+import { WaitlistButton } from '../ui/waitlist-button';
 
 export const CTASection = () => {
   return (
@@ -30,21 +30,11 @@ export const CTASection = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
-            className="space-y-6 mb-12"
+            className="flex justify-center mb-12"
           >
-            <TallyButton className="text-lg w-full md:w-auto md:min-w-[300px]">
+            <WaitlistButton size="xl" className="w-full md:w-auto md:min-w-[300px]">
               Join the Waitlist
-            </TallyButton>
-            <noscript>
-              <a
-                href="https://tally.so/r/J9KGO4"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block px-12 py-6 bg-gradient-to-r from-reach-blue to-reach-purple text-white rounded-full font-semibold text-xl shadow-[0_20px_60px_rgba(102,126,234,0.4)]"
-              >
-                Join the Waitlist
-              </a>
-            </noscript>
+            </WaitlistButton>
           </motion.div>
 
           <motion.div

@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { AuroraBackground } from '../ui/aurora-background';
-import { LiquidButton } from '../ui/liquid-glass-button';
+import { WaitlistButton } from '../ui/waitlist-button';
 
 export const HeroSection = () => {
   const ref = useRef(null);
@@ -105,21 +105,9 @@ export const HeroSection = () => {
               }}
               className="flex justify-center w-full"
             >
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <LiquidButton
-                  size="xxl"
-                  className="shadow-2xl shadow-purple-500/50 hover:shadow-3xl hover:shadow-purple-500/60"
-                  onClick={() => {
-                    const waitlistSection = document.getElementById('cta');
-                    waitlistSection?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                >
-                  Join 500+ Students on the Waitlist
-                </LiquidButton>
-              </motion.div>
+              <WaitlistButton size="xxl">
+                Join 500+ Students on the Waitlist
+              </WaitlistButton>
             </motion.div>
           </div>
         </div>
@@ -131,16 +119,21 @@ export const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2.5, duration: 0.8 }}
           whileHover={{ y: 5 }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/60 hover:text-white/90 transition-colors cursor-pointer group z-20"
-          aria-label="Scroll to how it works section"
+          className="absolute bottom-8 md:bottom-12
+                     left-1/2 -translate-x-1/2
+                     flex flex-col items-center gap-2
+                     text-white/60 hover:text-white/90
+                     transition-colors duration-300
+                     cursor-pointer group z-20"
+          aria-label="Scroll to journey section"
         >
-          <span className="text-sm font-medium tracking-wide">
+          <span className="text-sm md:text-base font-medium tracking-wide text-center whitespace-nowrap">
             See how it works
           </span>
           <motion.svg
             animate={{ y: [0, 5, 0] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            className="w-6 h-6"
+            className="w-6 h-6 md:w-8 md:h-8"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"

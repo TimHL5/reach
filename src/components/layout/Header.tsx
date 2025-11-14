@@ -2,6 +2,7 @@ import { motion, useScroll } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import { WaitlistButton } from '../ui/waitlist-button';
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -27,6 +28,18 @@ export const Header = () => {
     return () => {
       document.body.style.overflow = 'unset';
     };
+  }, [mobileMenuOpen]);
+
+  // Keyboard navigation: Escape to close mobile menu
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
   }, [mobileMenuOpen]);
 
   const scrollToSection = (id: string) => {
@@ -62,7 +75,7 @@ export const Header = () => {
             {/* Desktop Navigation - Hidden on mobile */}
             <div className="hidden md:flex items-center gap-8">
               <button
-                onClick={() => scrollToSection('how-it-works')}
+                onClick={() => scrollToSection('journey')}
                 className="text-white/70 hover:text-white transition-colors duration-300"
               >
                 How It Works
@@ -80,7 +93,7 @@ export const Header = () => {
                 Pricing
               </button>
               <button
-                onClick={() => scrollToSection('faq')}
+                onClick={() => scrollToSection('social-proof')}
                 className="text-white/70 hover:text-white transition-colors duration-300"
               >
                 About
@@ -89,12 +102,7 @@ export const Header = () => {
 
             {/* Desktop CTA - Hidden on mobile */}
             <div className="hidden md:block">
-              <button
-                onClick={() => scrollToSection('cta')}
-                className="px-6 py-2.5 rounded-full bg-gradient-to-r from-reach-blue to-reach-purple text-white font-medium hover:shadow-lg hover:scale-105 transition-all duration-300"
-              >
-                Join Waitlist
-              </button>
+              <WaitlistButton size="sm">Join Waitlist</WaitlistButton>
             </div>
 
             {/* Mobile Hamburger - Hidden on desktop */}
@@ -137,7 +145,7 @@ export const Header = () => {
         {/* Mobile Menu Links */}
         <div className="flex flex-col px-6 space-y-1">
           <button
-            onClick={() => scrollToSection('how-it-works')}
+            onClick={() => scrollToSection('journey')}
             className="text-white text-lg font-medium py-4 border-b border-white/10 hover:text-reach-blue transition-colors text-left"
           >
             How It Works
@@ -156,7 +164,7 @@ export const Header = () => {
             Pricing
           </button>
           <button
-            onClick={() => scrollToSection('faq')}
+            onClick={() => scrollToSection('social-proof')}
             className="text-white text-lg font-medium py-4 border-b border-white/10 hover:text-reach-blue transition-colors text-left"
           >
             About
@@ -165,15 +173,9 @@ export const Header = () => {
 
         {/* Mobile CTA Button */}
         <div className="px-6 mt-8">
-          <button
-            onClick={() => {
-              setMobileMenuOpen(false);
-              scrollToSection('cta');
-            }}
-            className="w-full px-6 py-3 rounded-full bg-gradient-to-r from-reach-blue to-reach-purple text-white font-medium hover:shadow-lg transition-all"
-          >
+          <WaitlistButton size="md" className="w-full">
             Join Waitlist
-          </button>
+          </WaitlistButton>
         </div>
       </div>
     </>

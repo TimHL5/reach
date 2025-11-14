@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
-import { LiquidButton } from '../ui/liquid-glass-button';
+import { WaitlistButton } from '../ui/waitlist-button';
 
 export const PricingSection = () => {
   const features = [
@@ -100,16 +100,9 @@ export const PricingSection = () => {
                 </p>
               </div>
 
-              <LiquidButton
-                size="xl"
-                className="w-full mb-8"
-                onClick={() => {
-                  const ctaSection = document.getElementById('cta');
-                  ctaSection?.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
+              <WaitlistButton size="xl" className="w-full mb-8">
                 Join Waitlist - Get 50% Off
-              </LiquidButton>
+              </WaitlistButton>
 
               <div className="space-y-4 mb-8">
                 <p className="text-sm text-white/50 text-center mb-6 uppercase tracking-wide">
