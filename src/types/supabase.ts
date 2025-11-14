@@ -36,6 +36,22 @@ export type SurveyResponse = {
   updated_at: string;
 };
 
+export type UserCollegeLike = {
+  id: string;
+  user_id: string;
+  university_id: string;
+  created_at: string;
+};
+
+export type UserCollegeNote = {
+  id: string;
+  user_id: string;
+  university_id: string;
+  note: string;
+  created_at: string;
+  updated_at: string;
+};
+
 export type Database = {
   public: {
     Tables: {
@@ -53,6 +69,16 @@ export type Database = {
         Row: SurveyResponse;
         Insert: Omit<SurveyResponse, 'id' | 'updated_at'>;
         Update: Partial<Omit<SurveyResponse, 'id' | 'created_at' | 'updated_at'>>;
+      };
+      user_college_likes: {
+        Row: UserCollegeLike;
+        Insert: Omit<UserCollegeLike, 'id' | 'created_at'>;
+        Update: Partial<Omit<UserCollegeLike, 'id' | 'created_at'>>;
+      };
+      user_college_notes: {
+        Row: UserCollegeNote;
+        Insert: Omit<UserCollegeNote, 'id' | 'created_at' | 'updated_at'>;
+        Update: Partial<Omit<UserCollegeNote, 'id' | 'user_id' | 'university_id' | 'created_at' | 'updated_at'>>;
       };
     };
   };

@@ -1,15 +1,19 @@
 import { motion, useScroll } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, User, Heart, LogOut } from 'lucide-react';
 import { TallyButton } from '../ui/TallyButton';
+import { useAuth } from '../../contexts/AuthContext';
+import { AuthModal } from '../auth/AuthModal';
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
   const { scrollY } = useScroll();
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+  const { user, signOut } = useAuth();
 
   useEffect(() => {
     return scrollY.on('change', (latest) => {
@@ -60,7 +64,7 @@ export const Header = () => {
             </Link>
 
             {/* Desktop Navigation - Hidden on mobile */}
-            <div className="hidden lg:flex items-center space-x-8">
+            <div className="hidden lg:flex items-center space-x-6">
               <button
                 onClick={() => scrollToSection('how-it-works')}
                 className={`font-medium hover:text-reach-blue transition-colors ${
@@ -77,6 +81,17 @@ export const Header = () => {
               >
                 Universities
               </Link>
+              {user && (
+                <Link
+                  to="/my-colleges"
+                  className={`font-medium hover:text-reach-blue transition-colors flex items-center ${
+                    isScrolled ? 'text-midnight' : 'text-white'
+                  }`}
+                >
+                  <Heart size={16} className="mr-1" />
+                  My Colleges
+                </Link>
+              )}
               <button
                 onClick={() => scrollToSection('pricing')}
                 className={`font-medium hover:text-reach-blue transition-colors ${
@@ -96,7 +111,28 @@ export const Header = () => {
             </div>
 
             {/* Desktop CTA - Hidden on mobile */}
-            <div className="hidden lg:block">
+            <div className="hidden lg:flex items-center space-x-4">
+              {user ? (
+                <button
+                  onClick={signOut}
+                  className={`flex items-center font-medium hover:text-reach-blue transition-colors ${
+                    isScrolled ? 'text-midnight' : 'text-white'
+                  }`}
+                >
+                  <LogOut size={16} className="mr-1" />
+                  Sign Out
+                </button>
+              ) : (
+                <button
+                  onClick={() => setShowAuthModal(true)}
+                  className={`flex items-center font-medium hover:text-reach-blue transition-colors ${
+                    isScrolled ? 'text-midnight' : 'text-white'
+                  }`}
+                >
+                  <User size={16} className="mr-1" />
+                  Sign In
+                </button>
+              )}
               <TallyButton
                 variant={isScrolled ? 'primary' : 'secondary'}
                 className="text-base py-2 px-6"
@@ -157,6 +193,16 @@ export const Header = () => {
           >
             Universities
           </Link>
+          {user && (
+            <Link
+              to="/my-colleges"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-gray-900 text-lg font-medium py-4 border-b border-gray-200 hover:text-reach-blue transition-colors flex items-center"
+            >
+              <Heart size={18} className="mr-2" />
+              My Colleges
+            </Link>
+          )}
           <button
             onClick={() => scrollToSection('pricing')}
             className="text-gray-900 text-lg font-medium py-4 border-b border-gray-200 hover:text-reach-blue transition-colors text-left"
@@ -169,6 +215,29 @@ export const Header = () => {
           >
             FAQ
           </button>
+          {user ? (
+            <button
+              onClick={() => {
+                signOut();
+                setMobileMenuOpen(false);
+              }}
+              className="text-gray-900 text-lg font-medium py-4 border-b border-gray-200 hover:text-reach-blue transition-colors text-left flex items-center"
+            >
+              <LogOut size={18} className="mr-2" />
+              Sign Out
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                setShowAuthModal(true);
+                setMobileMenuOpen(false);
+              }}
+              className="text-gray-900 text-lg font-medium py-4 border-b border-gray-200 hover:text-reach-blue transition-colors text-left flex items-center"
+            >
+              <User size={18} className="mr-2" />
+              Sign In
+            </button>
+          )}
         </div>
 
         {/* Mobile CTA Button */}
@@ -178,6 +247,12 @@ export const Header = () => {
           </TallyButton>
         </div>
       </div>
+
+      {/* Auth Modal */}
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+      />
     </>
   );
 };

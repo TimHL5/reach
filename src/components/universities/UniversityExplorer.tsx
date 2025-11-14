@@ -5,6 +5,8 @@ import { UniversityFilters } from './UniversityFilters';
 import { UniversityCard } from './UniversityCard';
 import type { University, FilterState } from '../../types/university';
 import { Loader2 } from 'lucide-react';
+import { useCollegeLikes } from '../../hooks/useCollegeLikes';
+import { AuthModal } from '../auth/AuthModal';
 
 export const UniversityExplorer = () => {
   const [universities, setUniversities] = useState<University[]>([]);
@@ -12,6 +14,9 @@ export const UniversityExplorer = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+
+  const { toggleLike, isLiked } = useCollegeLikes();
 
   const [filters, setFilters] = useState<FilterState>({
     country: 'all',
@@ -285,13 +290,25 @@ export const UniversityExplorer = () => {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {filteredUniversities.map(university => (
-                  <UniversityCard key={university.id} university={university} />
+                  <UniversityCard
+                    key={university.id}
+                    university={university}
+                    isLiked={isLiked(university.id)}
+                    onToggleLike={toggleLike}
+                    onAuthRequired={() => setShowAuthModal(true)}
+                  />
                 ))}
               </div>
             )}
           </main>
         </div>
       </div>
+
+      {/* Auth Modal */}
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+      />
     </div>
   );
 };

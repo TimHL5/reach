@@ -1,19 +1,56 @@
 import { Link } from 'react-router-dom';
-import { MapPin, Users, TrendingUp, DollarSign } from 'lucide-react';
+import { MapPin, Users, TrendingUp, DollarSign, Heart } from 'lucide-react';
 import type { University } from '../../types/university';
+import { useState } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
 
 interface UniversityCardProps {
   university: University;
+  isLiked?: boolean;
+  onToggleLike?: (universityId: string) => void;
+  onAuthRequired?: () => void;
 }
 
-export const UniversityCard = ({ university }: UniversityCardProps) => {
+export const UniversityCard = ({ university, isLiked = false, onToggleLike, onAuthRequired }: UniversityCardProps) => {
+  const { user } = useAuth();
+
+  const handleLikeClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!user && onAuthRequired) {
+      onAuthRequired();
+      return;
+    }
+
+    if (onToggleLike) {
+      onToggleLike(university.id);
+    }
+  };
+
   return (
     <Link
       to={`/universities/${university.slug}`}
-      className="block bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden group"
+      className="block bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden group relative"
     >
+      {/* Like Button */}
+      <button
+        onClick={handleLikeClick}
+        className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white shadow-md hover:shadow-lg transition-all duration-200 group/like"
+        aria-label={isLiked ? 'Unlike college' : 'Like college'}
+      >
+        <Heart
+          size={20}
+          className={`transition-colors ${
+            isLiked
+              ? 'fill-red-500 text-red-500'
+              : 'text-gray-400 group-hover/like:text-red-500'
+          }`}
+        />
+      </button>
+
       <div className="p-6">
-        <h3 className="text-xl font-bold text-gray-900 group-hover:text-reach-blue transition-colors line-clamp-2 mb-2">
+        <h3 className="text-xl font-bold text-gray-900 group-hover:text-reach-blue transition-colors line-clamp-2 mb-2 pr-8">
           {university.name}
         </h3>
 

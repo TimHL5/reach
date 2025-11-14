@@ -5,6 +5,8 @@ import { supabase } from '../lib/supabase';
 import { Header } from '../components/layout/Header';
 import { Footer } from '../components/layout/Footer';
 import { TallyButton } from '../components/ui/TallyButton';
+import { CollegeNotes } from '../components/universities/CollegeNotes';
+import { AuthModal } from '../components/auth/AuthModal';
 import type { University } from '../types/university';
 
 export default function UniversityDetailPage() {
@@ -12,6 +14,7 @@ export default function UniversityDetailPage() {
   const [university, setUniversity] = useState<University | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   useEffect(() => {
     const fetchUniversity = async () => {
@@ -297,6 +300,13 @@ export default function UniversityDetailPage() {
               </div>
             </div>
 
+            {/* College Notes */}
+            <CollegeNotes
+              universityId={university.id}
+              universityName={university.name}
+              onAuthRequired={() => setShowAuthModal(true)}
+            />
+
             {/* CTA Box */}
             <div className="bg-gradient-brand rounded-lg shadow-lg p-6 text-white">
               <h3 className="text-xl font-bold mb-3">Need help applying to {university.name}?</h3>
@@ -313,6 +323,12 @@ export default function UniversityDetailPage() {
           </div>
         </div>
       </div>
+
+      {/* Auth Modal */}
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+      />
 
       <Footer />
     </div>
