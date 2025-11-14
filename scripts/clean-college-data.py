@@ -32,6 +32,12 @@ def clean_college_data():
     def get_col(col_name, default=None):
         return df[col_name] if col_name in df.columns else default
     
+    # PCIP codes for majors/programs (percentage of degrees awarded in each field)
+    pcip_codes = ['01', '03', '04', '05', '09', '10', '11', '12', '13', '14', '15', '16',
+                  '19', '22', '23', '24', '25', '26', '27', '29', '30', '31', '38', '39',
+                  '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51',
+                  '52', '54']
+
     # Map to database schema
     cleaned = pd.DataFrame({
         'name': get_col('INSTNM'),
@@ -60,6 +66,11 @@ def clean_college_data():
         'percent_receiving_aid': pd.to_numeric(get_col('PCTFLOAN'), errors='coerce') * 100,
         'student_faculty_ratio': pd.to_numeric(get_col('STUFACR'), errors='coerce'),
     })
+
+    # Add PCIP fields (percentage of degrees in each major)
+    for code in pcip_codes:
+        col_name = f'pcip{code}'
+        cleaned[col_name] = pd.to_numeric(get_col(f'PCIP{code}'), errors='coerce') * 100
     
     # Remove schools with missing critical data
     cleaned = cleaned.dropna(subset=['name', 'city', 'state', 'slug'])

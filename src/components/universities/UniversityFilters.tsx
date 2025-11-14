@@ -1,4 +1,5 @@
 import type { FilterState, University } from '../../types/university';
+import { getAllMajors } from '../../lib/majorMapping';
 
 interface FiltersProps {
   filters: FilterState;
@@ -8,6 +9,7 @@ interface FiltersProps {
 
 export const UniversityFilters = ({ filters, onFilterChange, universities }: FiltersProps) => {
   const uniqueStates = Array.from(new Set(universities.map(u => u.state).filter(Boolean))).sort();
+  const allMajors = getAllMajors();
 
   const resetFilters = () => {
     onFilterChange({
@@ -19,6 +21,7 @@ export const UniversityFilters = ({ filters, onFilterChange, universities }: Fil
       minEnrollment: 0,
       maxEnrollment: 200000,
       type: 'all',
+      major: 'all',
     });
   };
 
@@ -69,6 +72,21 @@ export const UniversityFilters = ({ filters, onFilterChange, universities }: Fil
           <option value="all">All Types</option>
           <option value="Public">Public</option>
           <option value="Private Non-Profit">Private Non-Profit</option>
+        </select>
+      </div>
+
+      {/* Major/Program */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">Major/Program</label>
+        <select
+          value={filters.major}
+          onChange={(e) => onFilterChange({ ...filters, major: e.target.value })}
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-reach-blue"
+        >
+          <option value="all">All Majors</option>
+          {allMajors.map(major => (
+            <option key={major} value={major}>{major}</option>
+          ))}
         </select>
       </div>
 

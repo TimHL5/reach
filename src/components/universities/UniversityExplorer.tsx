@@ -5,6 +5,7 @@ import { UniversityFilters } from './UniversityFilters';
 import { UniversityCard } from './UniversityCard';
 import type { University, FilterState } from '../../types/university';
 import { Loader2 } from 'lucide-react';
+import { getCIPCode, universityOffersMajor } from '../../lib/majorMapping';
 
 export const UniversityExplorer = () => {
   const [universities, setUniversities] = useState<University[]>([]);
@@ -22,6 +23,7 @@ export const UniversityExplorer = () => {
     minEnrollment: 0,
     maxEnrollment: 200000,
     type: 'all',
+    major: 'all',
   });
 
   // Fetch universities on mount
@@ -209,6 +211,20 @@ export const UniversityExplorer = () => {
     );
     if (beforeEnrollment !== result.length) {
       console.log('  After enrollment filter:', result.length);
+    }
+
+    // Major filter
+    if (filters.major !== 'all') {
+      const beforeMajor = result.length;
+      const cipCode = getCIPCode(filters.major);
+
+      if (cipCode) {
+        console.log('  Filtering by major:', filters.major, '(CIP code:', cipCode, ')');
+        result = result.filter(u => universityOffersMajor(u, cipCode));
+        console.log('  After major filter:', result.length);
+      } else {
+        console.warn('  ⚠️ No CIP code found for major:', filters.major);
+      }
     }
 
     console.log('✅ Final filtered count:', result.length);
