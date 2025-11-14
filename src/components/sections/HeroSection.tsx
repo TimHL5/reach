@@ -23,13 +23,13 @@ export const HeroSection = () => {
   // Default message for SSR/initial render
   const defaultMessage = {
     time: '6pm',
-    message: "staring at your Common App essay at 2am, wondering if it's good enough?",
+    message: "staring at your Common App essay wondering if it's good enough?",
   };
 
   // Get personalized message based on time
-  const { message } = currentTime ? getTimeBasedMessage(currentTime) : defaultMessage;
+  const { time, message } = currentTime ? getTimeBasedMessage(currentTime) : defaultMessage;
 
-  const headline = `are YOU ${message}`;
+  const headline = `It's ${time}, are YOU ${message}`;
   const words = headline.split(' ');
 
   return (
