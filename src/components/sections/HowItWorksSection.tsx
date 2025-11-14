@@ -1,154 +1,130 @@
 import { motion } from 'framer-motion';
-import { Edit3, Sparkles, CheckCircle } from 'lucide-react';
-import { useState } from 'react';
-import { Button } from '../ui/Button';
+import { VerticalCutReveal } from '../ui/vertical-cut-reveal';
 
 export const HowItWorksSection = () => {
-  const [demoText, setDemoText] = useState('Growing up, I always loved science...');
-  const [showFeedback, setShowFeedback] = useState(false);
-
   const steps = [
     {
-      icon: Edit3,
-      title: 'You Write',
-      description: 'Start with your story in your own words',
-      details:
-        'We do not write for you. You write your authentic first draft, expressing your experiences and personality.',
+      number: '01',
+      title: 'You Write First',
+      description: 'Start with your story in your own words. We never write for you.',
     },
     {
-      icon: Sparkles,
-      title: 'AI Analyzes',
-      description: 'Our AI identifies what is working and what is not',
-      details: 'Specific, actionable feedback on vague language, weak verbs, structure issues, voice inconsistencies, and missing context.',
-      highlights: [
-        'Vague language → suggestions for specificity',
-        'Weak verbs → stronger alternatives',
-        'Structure issues → reorganization ideas',
-        'Voice inconsistencies → tone adjustments',
-        'Missing context → questions to answer',
-      ],
+      number: '02',
+      title: 'AI Analyzes Deeply',
+      description: 'Get specific, actionable feedback on what works and what doesn\'t.',
     },
     {
-      icon: CheckCircle,
+      number: '03',
       title: 'You Improve',
-      description: 'Revise with confidence, staying true to yourself',
-      details:
-        'You make the final decisions. The AI guides, you choose. Your voice stays intact, just clearer and more compelling.',
+      description: 'Revise with confidence. Your voice stays intact, just clearer.',
     },
   ];
 
-  const handleGetFeedback = () => {
-    setShowFeedback(true);
-  };
-
   return (
-    <section id="how-it-works" className="py-20 bg-cloud">
-      <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold text-midnight mb-6">
-            Behind the scenes
-          </h2>
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            Transparency builds trust. Here's exactly how Reach helps you write better essays.
-          </p>
-        </motion.div>
-
-        {/* Three steps */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
-          {steps.map((step, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.2 }}
-              className="bg-white rounded-xl p-8 shadow-lg"
-            >
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-brand rounded-xl mb-4">
-                <step.icon size={32} className="text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-midnight mb-3">{step.title}</h3>
-              <p className="text-lg font-semibold text-reach-blue mb-3">{step.description}</p>
-              <p className="text-gray-600 mb-4">{step.details}</p>
-              {step.highlights && (
-                <ul className="space-y-2">
-                  {step.highlights.map((item, i) => (
-                    <li key={i} className="text-sm text-gray-700">
-                      • {item}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </motion.div>
-          ))}
+    <section id="how-it-works" className="section-spacing bg-gradient-to-b from-black via-midnight to-black relative overflow-hidden">
+      <div className="container mx-auto px-6 md:px-8">
+        <div className="text-center mb-16 md:mb-24">
+          <VerticalCutReveal
+            splitBy="words"
+            staggerDuration={0.15}
+            staggerFrom="first"
+            reverse={false}
+            containerClassName="justify-center mb-8"
+            transition={{
+              type: 'spring',
+              stiffness: 250,
+              damping: 40,
+            }}
+            className="text-5xl md:text-6xl lg:text-7xl font-bold text-gradient-primary"
+          >
+            Your AI Copilot For College Applications
+          </VerticalCutReveal>
         </div>
 
-        {/* Interactive demo */}
+        {/* Three principles with timeline */}
+        <div className="max-w-4xl mx-auto">
+          <div className="relative">
+            {/* Vertical timeline line */}
+            <div className="absolute left-8 md:left-16 top-0 bottom-0 w-px bg-gradient-to-b from-reach-blue/0 via-reach-blue/50 to-reach-blue/0" />
+
+            <div className="space-y-16 md:space-y-24">
+              {steps.map((step, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, x: -40 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: '-100px' }}
+                  transition={{
+                    duration: 0.8,
+                    delay: idx * 0.2,
+                    ease: [0.33, 1, 0.68, 1],
+                  }}
+                  className="relative flex items-start gap-8 md:gap-12"
+                >
+                  {/* Number circle */}
+                  <div className="flex-shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-reach-blue to-reach-purple flex items-center justify-center shadow-[0_0_40px_rgba(102,126,234,0.4)]">
+                    <span className="text-xl md:text-2xl font-bold">{step.number}</span>
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex-1 pt-2">
+                    <h3 className="text-2xl md:text-3xl font-bold mb-3 tracking-tight">
+                      {step.title}
+                    </h3>
+                    <p className="text-lg md:text-xl text-white/70 leading-relaxed">
+                      {step.description}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Simple visual mockup suggestion */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="bg-white rounded-2xl p-8 shadow-xl max-w-3xl mx-auto"
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.8, delay: 0.6, ease: [0.33, 1, 0.68, 1] }}
+          className="mt-24 max-w-5xl mx-auto glass-card p-8 md:p-12"
         >
-          <h3 className="text-2xl font-bold text-midnight mb-6 text-center">
-            Try it yourself:
-          </h3>
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Left: Essay preview */}
+            <div className="space-y-4">
+              <div className="text-sm font-semibold text-white/50 tracking-wide uppercase">Your Draft</div>
+              <div className="space-y-3 text-white/60 font-mono text-sm leading-relaxed">
+                <p className="hover:bg-white/5 p-2 rounded transition-colors">
+                  Growing up, I always loved science...
+                </p>
+                <p className="hover:bg-white/5 p-2 rounded transition-colors">
+                  My passion for learning drove me to...
+                </p>
+                <p className="hover:bg-white/5 p-2 rounded transition-colors">
+                  I believe this experience taught me...
+                </p>
+              </div>
+            </div>
 
-          <textarea
-            value={demoText}
-            onChange={(e) => setDemoText(e.target.value)}
-            className="w-full h-32 px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-reach-blue focus:outline-none text-midnight mb-4"
-            placeholder="Write a sample essay paragraph..."
-          />
-
-          {!showFeedback ? (
-            <Button onClick={handleGetFeedback} className="w-full">
-              Get AI Feedback
-            </Button>
-          ) : (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              className="bg-warning/10 border-l-4 border-warning p-6 rounded-lg"
-            >
-              <div className="flex items-start space-x-3">
-                <Sparkles className="text-warning flex-shrink-0 mt-1" size={24} />
-                <div>
-                  <p className="font-semibold text-midnight mb-2">AI Feedback:</p>
-                  <p className="text-gray-700 mb-3">
-                    Make "loved science" more specific. What kind of science? What did you actually
-                    do? Show, don't tell. Consider adding a specific moment or experience that
-                    demonstrates your passion.
+            {/* Right: AI feedback */}
+            <div className="space-y-4">
+              <div className="text-sm font-semibold text-white/50 tracking-wide uppercase">AI Feedback</div>
+              <div className="space-y-4">
+                <div className="p-4 rounded-xl bg-gradient-to-br from-reach-blue/10 to-reach-purple/10 border border-white/10">
+                  <div className="text-xs font-semibold text-reach-blue mb-2">Show, don't tell</div>
+                  <p className="text-sm text-white/80">
+                    "Loved science" is vague. What specific moment sparked this passion?
                   </p>
-                  <p className="text-sm text-gray-600">
-                    <strong>Suggested revision:</strong> "From dissecting frogs in 8th grade
-                    biology to building my first Arduino circuit at 15, hands-on scientific
-                    exploration has been my constant curiosity driver."
+                </div>
+                <div className="p-4 rounded-xl bg-gradient-to-br from-reach-blue/10 to-reach-purple/10 border border-white/10">
+                  <div className="text-xs font-semibold text-reach-blue mb-2">Add specificity</div>
+                  <p className="text-sm text-white/80">
+                    What did you actually do? Include concrete details.
                   </p>
                 </div>
               </div>
-            </motion.div>
-          )}
-
-          {showFeedback && (
-            <motion.button
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-              onClick={() => {
-                setDemoText('');
-                setShowFeedback(false);
-              }}
-              className="mt-4 text-reach-blue hover:text-reach-purple transition-colors text-sm font-medium"
-            >
-              Try another example →
-            </motion.button>
-          )}
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

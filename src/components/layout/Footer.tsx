@@ -1,81 +1,87 @@
-import { Linkedin, Twitter, Instagram } from 'lucide-react';
+import { Linkedin, Twitter } from 'lucide-react';
 
 export const Footer = () => {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
-    <footer className="bg-midnight text-white py-12">
-      <div className="container mx-auto px-6">
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
+    <footer className="bg-black border-t border-white/10 py-16">
+      <div className="container mx-auto px-6 md:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+          {/* Brand */}
           <div>
-            <h3 className="text-2xl font-bold mb-4">reach.</h3>
-            <p className="text-gray-400">Your application workspace.</p>
+            <div className="text-2xl font-bold mb-4">
+              <span className="text-gradient-primary">reach</span>
+            </div>
+            <p className="text-white/60 text-sm">Your application workspace</p>
           </div>
 
+          {/* Product */}
           <div>
-            <h4 className="font-semibold mb-4">Product</h4>
-            <ul className="space-y-2">
+            <h4 className="text-white font-semibold mb-4">Product</h4>
+            <ul className="space-y-2 text-sm text-white/60">
               <li>
-                <a href="#how-it-works" className="text-gray-400 hover:text-white transition-colors">
-                  How it works
+                <a href="#how-it-works" className="hover:text-white transition-colors">
+                  How It Works
                 </a>
               </li>
               <li>
-                <a href="#pricing" className="text-gray-400 hover:text-white transition-colors">
+                <a href="#pricing" className="hover:text-white transition-colors">
                   Pricing
                 </a>
               </li>
               <li>
-                <button onClick={scrollToTop} className="text-gray-400 hover:text-white transition-colors">
+                <a href="#" className="hover:text-white transition-colors">
                   Roadmap
-                </button>
+                </a>
               </li>
             </ul>
           </div>
 
+          {/* Company */}
           <div>
-            <h4 className="font-semibold mb-4">Connect</h4>
-            <div className="flex space-x-4 mb-4">
+            <h4 className="text-white font-semibold mb-4">Company</h4>
+            <ul className="space-y-2 text-sm text-white/60">
+              <li>
+                <a href="#social-proof" className="hover:text-white transition-colors">
+                  About
+                </a>
+              </li>
+              <li>
+                <a href="mailto:hello@reachadmissions.app" className="hover:text-white transition-colors">
+                  Contact
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Connect */}
+          <div>
+            <h4 className="text-white font-semibold mb-4">Connect</h4>
+            <div className="flex gap-4 mb-4">
               <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-reach-blue transition-colors"
+                href="#"
+                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
                 aria-label="LinkedIn"
               >
-                <Linkedin size={24} />
+                <Linkedin size={18} className="text-white/70" />
               </a>
               <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-reach-blue transition-colors"
+                href="#"
+                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
                 aria-label="Twitter"
               >
-                <Twitter size={24} />
-              </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-reach-blue transition-colors"
-                aria-label="Instagram"
-              >
-                <Instagram size={24} />
+                <Twitter size={18} className="text-white/70" />
               </a>
             </div>
             <a
-              href="mailto:team@reachadmissions.app"
-              className="text-gray-400 hover:text-white transition-colors"
+              href="mailto:hello@reachadmissions.app"
+              className="text-sm text-white/60 hover:text-white transition-colors"
             >
-              team@reachadmissions.app
+              hello@reachadmissions.app
             </a>
           </div>
         </div>
 
-        <div className="border-t border-gray-800 pt-8 text-center text-gray-400 text-sm">
+        {/* Bottom */}
+        <div className="pt-8 border-t border-white/10 text-center text-sm text-white/40">
           © 2026 Reach Admissions. Built in Boston, scaling from Vietnam.
         </div>
       </div>

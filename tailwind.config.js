@@ -7,39 +7,75 @@ export default {
   theme: {
     extend: {
       colors: {
-        'reach-blue': '#2B5FED',
-        'reach-purple': '#8B5CF6',
-        'midnight': '#0A1628',
-        'cloud': '#FAFBFC',
+        'reach-blue': '#667EEA',
+        'reach-purple': '#764BA2',
+        'midnight': '#0A0A0A',
         'success': '#10B981',
         'warning': '#F59E0B',
         'error': '#EF4444',
       },
       fontFamily: {
-        sans: ['Montserrat', 'system-ui', '-apple-system', 'sans-serif'],
-        mono: ['JetBrains Mono', 'monospace'],
+        sans: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
       },
       backgroundImage: {
-        'gradient-brand': 'linear-gradient(135deg, #2B5FED 0%, #8B5CF6 100%)',
+        'gradient-brand': 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)',
+        'gradient-warm': 'linear-gradient(135deg, #F093FB 0%, #F5576C 100%)',
+      },
+      fontSize: {
+        'xs': '0.75rem',
+        'sm': '0.875rem',
+        'base': '1rem',
+        'lg': '1.125rem',
+        'xl': '1.25rem',
+        '2xl': '1.5rem',
+        '3xl': '1.875rem',
+        '4xl': '2.25rem',
+        '5xl': '3rem',
+        '6xl': '3.75rem',
+        '7xl': '4.5rem',
+      },
+      lineHeight: {
+        'tight': '1.2',
+        'snug': '1.375',
+        'normal': '1.5',
+        'relaxed': '1.625',
+      },
+      letterSpacing: {
+        'tight': '-0.02em',
+        'normal': '0',
+        'wide': '0.025em',
       },
       animation: {
-        'fade-in': 'fadeIn 0.5s ease-in',
-        'slide-up': 'slideUp 0.5s ease-out',
-        'bounce-gentle': 'bounceGentle 2s infinite',
+        'aurora': 'aurora 60s linear infinite',
+        'fade-in': 'fadeIn 0.5s ease-out',
+        'slide-up': 'slideUp 0.6s ease-out',
+        'pulse-gentle': 'pulseGentle 3s ease-in-out infinite',
+        'glow': 'glow 2s ease-in-out infinite',
       },
       keyframes: {
+        aurora: {
+          '0%': { backgroundPosition: '50% 50%, 50% 50%' },
+          '100%': { backgroundPosition: '350% 50%, 350% 50%' },
+        },
         fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         slideUp: {
-          '0%': { transform: 'translateY(20px)', opacity: '0' },
-          '100%': { transform: 'translateY(0)', opacity: '1' },
+          '0%': { opacity: '0', transform: 'translateY(40px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         },
-        bounceGentle: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-10px)' },
+        pulseGentle: {
+          '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+          '50%': { opacity: '0.95', transform: 'scale(1.01)' },
         },
+        glow: {
+          '0%, 100%': { boxShadow: '0 0 20px rgba(102, 126, 234, 0.3)' },
+          '50%': { boxShadow: '0 0 40px rgba(102, 126, 234, 0.6)' },
+        },
+      },
+      transitionTimingFunction: {
+        'apple': 'cubic-bezier(0.33, 1, 0.68, 1)',
       },
     },
   },

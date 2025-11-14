@@ -1,168 +1,139 @@
 import { motion } from 'framer-motion';
-import { Linkedin, Mail } from 'lucide-react';
-import { Card } from '../ui/Card';
-import { TallyButton } from '../ui/TallyButton';
+import { GlowingEffect } from '../ui/glowing-effect';
 
 export const SocialProofSection = () => {
   const founders = [
     {
       name: 'Tim Liu',
-      role: 'CEO',
-      credentials: "BC '26, Finance & Entrepreneurship",
-      quote:
-        'I bootstrapped my way through admissions and built a $50K edtech company. Every student deserves the tools I wish I had.',
-      linkedin: 'https://www.linkedin.com/in/timothyhaiyiliu/',
-      email: 'tim@reachadmissions.app',
+      role: 'Co-Founder',
       image: '/tim.png',
       initials: 'TL',
     },
     {
       name: 'Ethan Foreman',
-      role: 'CMO',
-      credentials: "BC '26, Marketing",
-      quote:
-        'I navigated admissions as a first-gen student. Reach exists to level the playing field for everyone who does not have access to expensive consultants.',
-      linkedin: 'https://www.linkedin.com/in/ethan-j-foreman/',
-      email: 'ethan@reachadmissions.app',
+      role: 'Co-Founder',
       image: '/ethan.png',
       initials: 'EF',
     },
     {
       name: 'Alex Amaral',
-      role: 'CFO',
-      credentials: "BC '26, Finance",
-      quote:
-        'Financial barriers should not determine educational outcomes. We are making world-class guidance accessible to every family.',
-      linkedin: 'https://www.linkedin.com/in/alexander-amaral-8a1743288/',
-      email: 'alex@reachadmissions.app',
+      role: 'Co-Founder',
       image: '/alex.png',
       initials: 'AA',
     },
-    {
-      name: 'Dean Kaduboski',
-      role: 'COO',
-      credentials: "BC '26, Finance & Leadership",
-      quote:
-        'Every student deserves a fair shot at their dream schools. We are building the tools to make that possible.',
-      linkedin: 'https://www.linkedin.com/in/deankaduboski/',
-      email: 'dean@reachadmissions.app',
-      image: '/dean.png',
-      initials: 'DK',
-    },
+  ];
+
+  const stats = [
+    { number: '500+', label: 'Students on waitlist' },
+    { number: '3.9+', label: 'Average founder GPA' },
+    { number: 'Spring 2026', label: 'Launch date' },
   ];
 
   return (
-    <section id="social-proof" className="py-20 bg-white">
-      <div className="container mx-auto px-6">
+    <section id="social-proof" className="section-spacing bg-black">
+      <div className="container mx-auto px-6 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
+          className="text-center mb-16 md:mb-20"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-midnight mb-6">
-            Founded by students who get it
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
+            Built by Students,
+            <br />
+            <span className="text-gradient-primary">For Students</span>
           </h2>
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            We've been through the admissions process recently. We know what works and what
-            doesn't. And we're building the tools we wish existed when we were applying.
-          </p>
         </motion.div>
 
-        {/* Founder cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-          {founders.map((founder, idx) => (
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
+          className="max-w-4xl mx-auto mb-20"
+        >
+          <div className="relative glass-card p-12 md:p-16">
+            <GlowingEffect
+              spread={60}
+              glow={true}
+              disabled={false}
+              proximity={100}
+              borderWidth={2}
+            />
+
+            <div className="relative z-10">
+              {/* Founder photos */}
+              <div className="flex justify-center gap-6 md:gap-8 mb-12">
+                {founders.map((founder, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.1, ease: [0.33, 1, 0.68, 1] }}
+                    className="text-center"
+                  >
+                    <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-white/20 mb-4 mx-auto bg-gradient-to-br from-reach-blue to-reach-purple flex items-center justify-center text-white text-2xl font-bold">
+                      {founder.image ? (
+                        <img
+                          src={founder.image}
+                          alt={founder.name}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            e.currentTarget.style.display = 'none';
+                            const parent = e.currentTarget.parentElement;
+                            if (parent) {
+                              parent.innerHTML = founder.initials;
+                            }
+                          }}
+                        />
+                      ) : (
+                        founder.initials
+                      )}
+                    </div>
+                    <p className="text-sm font-medium text-white/90">{founder.name}</p>
+                    <p className="text-xs text-white/50">{founder.role}</p>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Quote */}
+              <blockquote className="text-xl md:text-2xl lg:text-3xl text-center text-white/90 leading-relaxed mb-8 max-w-3xl mx-auto">
+                "We went through the admissions process recently and saw the inequality firsthand. Wealthy families get consultants. Everyone else struggles alone.
+                <br /><br />
+                <span className="text-gradient-primary font-semibold">
+                  We're fixing that.
+                </span>"
+              </blockquote>
+
+              <p className="text-center text-white/60">
+                <span className="font-medium">Tim Liu, Ethan Foreman & Alex Amaral</span>
+                <br />
+                Boston College '26
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          {stats.map((stat, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ delay: idx * 0.15, duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
+              className="text-center"
             >
-              <Card className="h-full flex flex-col">
-                <div className="w-32 h-32 mx-auto mb-4 bg-gradient-brand rounded-full flex items-center justify-center text-white text-4xl font-bold overflow-hidden">
-                  {founder.image ? (
-                    <img
-                      src={founder.image}
-                      alt={founder.name}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        e.currentTarget.style.display = 'none';
-                        if (e.currentTarget.nextSibling) {
-                          (e.currentTarget.nextSibling as HTMLElement).style.display = 'flex';
-                        }
-                      }}
-                    />
-                  ) : null}
-                  <span className={founder.image ? 'hidden' : ''}>
-                    {founder.initials || founder.name.split(' ').map(n => n[0]).join('')}
-                  </span>
-                </div>
-                <h3 className="text-xl font-bold text-midnight mb-1">{founder.name}</h3>
-                <p className="text-reach-blue font-semibold mb-1">{founder.role}</p>
-                <p className="text-sm text-gray-600 mb-4">{founder.credentials}</p>
-                <p className="text-gray-700 italic mb-4 flex-1">"{founder.quote}"</p>
-                <div className="flex flex-wrap gap-3">
-                  <a
-                    href={founder.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center text-reach-blue hover:text-reach-purple transition-colors"
-                    aria-label={`${founder.name} LinkedIn profile`}
-                  >
-                    <Linkedin size={18} className="mr-1" />
-                    Connect
-                  </a>
-                  <a
-                    href={`mailto:${founder.email}`}
-                    className="inline-flex items-center text-reach-blue hover:text-reach-purple transition-colors"
-                    aria-label={`Email ${founder.name}`}
-                  >
-                    <Mail size={18} className="mr-1" />
-                    Email
-                  </a>
-                </div>
-              </Card>
+              <div className="text-4xl md:text-5xl font-bold text-gradient-primary mb-3">
+                {stat.number}
+              </div>
+              <div className="text-base md:text-lg text-white/60">{stat.label}</div>
             </motion.div>
           ))}
         </div>
-
-        {/* Beta interest counter */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className="bg-gradient-brand text-white rounded-2xl p-12 text-center max-w-2xl mx-auto"
-        >
-          <div className="text-6xl font-bold mb-4">
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              200+
-            </motion.span>
-          </div>
-          <p className="text-2xl font-semibold mb-2">
-            Students already on the waitlist
-          </p>
-          <p className="text-white/90 mb-6">
-            for Spring 2026 launch
-          </p>
-          <TallyButton variant="secondary">
-            Join the Waitlist
-          </TallyButton>
-          <noscript>
-            <a
-              href="https://tally.so/r/J9KGO4"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-white text-reach-blue px-8 py-4 rounded-lg font-semibold text-lg mt-4"
-            >
-              Join the Waitlist
-            </a>
-          </noscript>
-        </motion.div>
       </div>
     </section>
   );
