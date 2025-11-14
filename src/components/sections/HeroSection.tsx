@@ -15,16 +15,11 @@ export const HeroSection = () => {
   const y2 = useTransform(scrollYProgress, [0, 1], [0, -100]);
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.5, 0]);
 
-  const scrollToNext = () => {
-    const journeySection = document.getElementById('journey');
-    journeySection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
-
   const headline = "are YOU staring at your Common App essay at 2am, wondering if it's good enough?";
   const words = headline.split(' ');
 
   return (
-    <section ref={ref} className="relative min-h-screen overflow-hidden">
+    <section ref={ref} className="relative w-full min-h-screen">
       <AuroraBackground className="absolute inset-0">
         {/* Animated gradient orbs with parallax */}
         <motion.div
@@ -114,27 +109,36 @@ export const HeroSection = () => {
 
         {/* Enhanced scroll indicator */}
         <motion.button
-          onClick={scrollToNext}
+          onClick={() => {
+            document.getElementById('journey')?.scrollIntoView({
+              behavior: 'smooth'
+            });
+          }}
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2.5, duration: 0.8 }}
           whileHover={{ y: 5 }}
-          className="absolute bottom-8 md:bottom-12
-                     left-1/2 -translate-x-1/2
-                     flex flex-col items-center justify-center gap-2
-                     text-center
-                     text-white/60 hover:text-white/90
-                     transition-colors duration-300
-                     cursor-pointer group z-20"
-          aria-label="Scroll to journey section"
+          className="absolute bottom-16 md:bottom-20
+                     left-0 right-0 mx-auto
+                     w-fit
+                     flex flex-col items-center justify-center gap-3
+                     text-white/70 hover:text-white
+                     transition-all duration-300
+                     cursor-pointer z-30
+                     px-4"
+          style={{ transform: 'translateX(0)' }}
         >
-          <span className="text-sm md:text-base font-medium tracking-wide whitespace-nowrap block">
+          <span className="text-sm md:text-base font-medium tracking-wide">
             See how it works
           </span>
           <motion.svg
-            animate={{ y: [0, 5, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            className="w-6 h-6 md:w-8 md:h-8 mx-auto block"
+            animate={{ y: [0, 8, 0] }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            className="w-6 h-6"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
