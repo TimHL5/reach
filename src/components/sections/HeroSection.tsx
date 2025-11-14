@@ -121,19 +121,20 @@ export const HeroSection = () => {
           whileHover={{ y: 5 }}
           className="absolute bottom-8 md:bottom-12
                      left-1/2 -translate-x-1/2
-                     flex flex-col items-center gap-2
+                     flex flex-col items-center justify-center gap-2
+                     text-center
                      text-white/60 hover:text-white/90
                      transition-colors duration-300
                      cursor-pointer group z-20"
           aria-label="Scroll to journey section"
         >
-          <span className="text-sm md:text-base font-medium tracking-wide text-center whitespace-nowrap">
+          <span className="text-sm md:text-base font-medium tracking-wide whitespace-nowrap block">
             See how it works
           </span>
           <motion.svg
             animate={{ y: [0, 5, 0] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            className="w-6 h-6 md:w-8 md:h-8"
+            className="w-6 h-6 md:w-8 md:h-8 mx-auto block"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
