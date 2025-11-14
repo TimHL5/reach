@@ -53,50 +53,69 @@ export const HowItWorks = () => {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start end', 'end start'],
+    offset: ['start 0.8', 'end 0.2'], // Start animating earlier
   });
 
-  // Cards fly in from bottom when entering, fly out to top when leaving
-  const y = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [100, 0, 0, -100]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  // Fly in from RIGHT side, fly out to LEFT side
+  const x = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [200, 0, 0, -200]);
+  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.8, 1, 1, 0.8]);
 
   return (
-    <section ref={containerRef} id="how-it-works" className="relative py-32 overflow-hidden">
+    <section
+      ref={containerRef}
+      id="how-it-works"
+      className="relative py-32 min-h-screen flex items-center overflow-hidden"
+    >
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-black to-slate-950" />
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem]" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 md:px-8">
         {/* Header */}
         <div className="text-center space-y-6 mb-20">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white"
+          >
             Everything you need to reach
             <br />
             <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
               your dream schools.
             </span>
-          </h2>
-          <p className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto">
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto"
+          >
             From freshman year to acceptance, Reach is the workspace where you build your application
             with AI guidance at every step.
-          </p>
-          <div className="flex items-center justify-center gap-2 text-white/50 text-sm">
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="flex items-center justify-center gap-2 text-white/50 text-sm"
+          >
             <span>Scroll to explore the journey</span>
             <svg className="w-4 h-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
-          </div>
+          </motion.div>
         </div>
 
-        {/* Cards Container */}
-        <motion.div style={{ y, opacity }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+        {/* Cards Container - with scroll-triggered animation */}
+        <motion.div style={{ x, opacity, scale }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
           {APPLICATION_STAGES.map((stage, index) => (
-            <motion.div
+            <div
               key={stage.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true, margin: '-100px' }}
               className="relative rounded-3xl overflow-hidden border border-blue-500/30 backdrop-blur-xl bg-gradient-to-br from-slate-900/80 via-blue-950/20 to-purple-950/20 p-6 hover:scale-105 transition-transform"
             >
               {/* Number Badge */}
@@ -116,12 +135,18 @@ export const HowItWorks = () => {
                 <p className="text-base font-semibold text-white/90">{stage.tagline}</p>
                 <p className="text-white/70 text-sm leading-relaxed">{stage.description}</p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </motion.div>
 
         {/* CTA */}
-        <div className="mt-20 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="mt-20 text-center"
+        >
           <button
             data-tally-open="J9KGO4"
             data-tally-layout="modal"
@@ -129,7 +154,7 @@ export const HowItWorks = () => {
           >
             Start Your Journey
           </button>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
