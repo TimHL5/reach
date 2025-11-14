@@ -16,6 +16,7 @@ export const UniversityExplorer = () => {
   const [filters, setFilters] = useState<FilterState>({
     country: 'all',
     state: 'all',
+    minTuition: 0,
     maxTuition: 200000, // Increased from 100k to 200k to not filter by default
     minAcceptance: 0,
     maxAcceptance: 100,
@@ -178,10 +179,13 @@ export const UniversityExplorer = () => {
       console.log('  Sample filtered universities:', result.slice(0, 3).map(u => ({ name: u.name, type: u.type })));
     }
 
-    // Tuition filter
+    // Tuition filter (handles missing data gracefully by including universities with null tuition)
     const beforeTuition = result.length;
     result = result.filter(u =>
-      !u.tuition_out_state || u.tuition_out_state <= filters.maxTuition
+      !u.tuition_out_state || (
+        u.tuition_out_state >= filters.minTuition &&
+        u.tuition_out_state <= filters.maxTuition
+      )
     );
     if (beforeTuition !== result.length) {
       console.log('  After tuition filter:', result.length);

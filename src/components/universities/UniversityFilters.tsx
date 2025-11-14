@@ -13,6 +13,7 @@ export const UniversityFilters = ({ filters, onFilterChange, universities }: Fil
     onFilterChange({
       country: 'all',
       state: 'all',
+      minTuition: 0,
       maxTuition: 200000, // Increased from 100k to 200k to not filter by default
       minAcceptance: 0,
       maxAcceptance: 100,
@@ -72,20 +73,31 @@ export const UniversityFilters = ({ filters, onFilterChange, universities }: Fil
         </select>
       </div>
 
-      {/* Max Tuition */}
+      {/* Tuition Range */}
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
-          Max Tuition: ${filters.maxTuition.toLocaleString()}
+          Tuition Range: ${filters.minTuition.toLocaleString()} - ${filters.maxTuition.toLocaleString()}
         </label>
-        <input
-          type="range"
-          min="0"
-          max="200000"
-          step="5000"
-          value={filters.maxTuition}
-          onChange={(e) => onFilterChange({ ...filters, maxTuition: Number(e.target.value) })}
-          className="w-full"
-        />
+        <div className="space-y-2">
+          <input
+            type="range"
+            min="0"
+            max="200000"
+            step="5000"
+            value={filters.minTuition}
+            onChange={(e) => onFilterChange({ ...filters, minTuition: Number(e.target.value) })}
+            className="w-full"
+          />
+          <input
+            type="range"
+            min="0"
+            max="200000"
+            step="5000"
+            value={filters.maxTuition}
+            onChange={(e) => onFilterChange({ ...filters, maxTuition: Number(e.target.value) })}
+            className="w-full"
+          />
+        </div>
       </div>
 
       {/* Acceptance Rate Range */}

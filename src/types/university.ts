@@ -42,6 +42,7 @@ export type University = {
 export type FilterState = {
   country: string;
   state: string;
+  minTuition: number;
   maxTuition: number;
   minAcceptance: number;
   maxAcceptance: number;
