@@ -3,15 +3,19 @@ import HomePage from './pages/HomePage';
 import UniversitiesPage from './pages/UniversitiesPage';
 import UniversityDetailPage from './pages/UniversityDetailPage';
 import GetMatchedPage from './pages/GetMatchedPage';
+import { ScrollProgress } from './components/ui/scroll-progress';
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/get-matched" element={<GetMatchedPage />} />
-      <Route path="/universities" element={<UniversitiesPage />} />
-      <Route path="/universities/:slug" element={<UniversityDetailPage />} />
-    </Routes>
+    <>
+      <ScrollProgress />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/get-matched" element={<GetMatchedPage />} />
+        <Route path="/universities" element={<UniversitiesPage />} />
+        <Route path="/universities/:slug" element={<UniversityDetailPage />} />
+      </Routes>
+    </>
   );
 }
 

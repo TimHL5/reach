@@ -22,6 +22,7 @@ export default {
       backgroundImage: {
         'gradient-brand': 'linear-gradient(135deg, #2B5FED 0%, #8B5CF6 100%)',
         'gradient-warm': 'linear-gradient(135deg, #8B5CF6 0%, #2B5FED 100%)',
+        'gradient-radial': 'radial-gradient(ellipse at center, var(--tw-gradient-stops))',
       },
       fontSize: {
         'xs': '0.75rem',
