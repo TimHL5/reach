@@ -2,7 +2,7 @@ import { Header } from '../components/layout/Header';
 import { Footer } from '../components/layout/Footer';
 import { HeroSection } from '../components/sections/HeroSection';
 import { ProblemSection } from '../components/sections/ProblemSection';
-import { SolutionSection } from '../components/sections/SolutionSection';
+import { HowItWorks } from '../components/sections/HowItWorks';
 import { DifferentiationSection } from '../components/sections/DifferentiationSection';
 import { HowItWorksSection } from '../components/sections/HowItWorksSection';
 import { SocialProofSection } from '../components/sections/SocialProofSection';
@@ -17,7 +17,7 @@ export default function HomePage() {
       <main>
         <HeroSection />
         <ProblemSection />
-        <SolutionSection />
+        <HowItWorks />
         <DifferentiationSection />
         <HowItWorksSection />
         <SocialProofSection />
