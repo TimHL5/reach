@@ -44,74 +44,67 @@ export const Header = () => {
   return (
     <>
       <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'bg-white/80 backdrop-blur-lg shadow-lg' : 'bg-transparent'
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          isScrolled
+            ? 'bg-black/80 backdrop-blur-xl border-b border-white/10 py-4'
+            : 'bg-transparent py-6'
         }`}
       >
-        <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 lg:h-20">
+        <nav className="container mx-auto px-6 md:px-8">
+          <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link to="/" className="flex items-center space-x-2">
-              <span className={`text-2xl lg:text-3xl font-bold ${isScrolled ? 'text-reach-blue' : 'text-white'}`}>
-                reach.
-              </span>
+            <Link to="/" className="flex items-center">
+              <span className="text-2xl font-bold text-gradient-primary">reach</span>
             </Link>
 
             {/* Desktop Navigation - Hidden on mobile */}
-            <div className="hidden lg:flex items-center space-x-8">
+            <div className="hidden md:flex items-center gap-8">
               <button
                 onClick={() => scrollToSection('how-it-works')}
-                className={`font-medium hover:text-reach-blue transition-colors ${
-                  isScrolled ? 'text-midnight' : 'text-white'
-                }`}
+                className="text-white/70 hover:text-white transition-colors duration-300"
               >
-                How it works
+                How It Works
               </button>
               <Link
                 to="/universities"
-                className={`font-medium hover:text-reach-blue transition-colors ${
-                  isScrolled ? 'text-midnight' : 'text-white'
-                }`}
+                className="text-white/70 hover:text-white transition-colors duration-300"
               >
                 Universities
               </Link>
               <button
                 onClick={() => scrollToSection('pricing')}
-                className={`font-medium hover:text-reach-blue transition-colors ${
-                  isScrolled ? 'text-midnight' : 'text-white'
-                }`}
+                className="text-white/70 hover:text-white transition-colors duration-300"
               >
                 Pricing
               </button>
               <button
                 onClick={() => scrollToSection('faq')}
-                className={`font-medium hover:text-reach-blue transition-colors ${
-                  isScrolled ? 'text-midnight' : 'text-white'
-                }`}
+                className="text-white/70 hover:text-white transition-colors duration-300"
               >
-                FAQ
+                About
               </button>
             </div>
 
             {/* Desktop CTA - Hidden on mobile */}
-            <div className="hidden lg:block">
-              <TallyButton
-                variant={isScrolled ? 'primary' : 'secondary'}
-                className="text-base py-2 px-6"
+            <div className="hidden md:block">
+              <button
+                onClick={() => scrollToSection('cta')}
+                className="px-6 py-2.5 rounded-full bg-gradient-to-r from-reach-blue to-reach-purple text-white font-medium hover:shadow-lg hover:scale-105 transition-all duration-300"
               >
                 Join Waitlist
-              </TallyButton>
+              </button>
             </div>
 
             {/* Mobile Hamburger - Hidden on desktop */}
             <button
               onClick={() => setMobileMenuOpen(true)}
-              className={`lg:hidden p-2 ${isScrolled ? 'text-midnight' : 'text-white'}`}
+              className="md:hidden p-2 text-white"
               aria-label="Open menu"
             >
-              <Menu size={28} />
+              <Menu size={24} />
             </button>
           </div>
         </nav>
@@ -120,14 +113,14 @@ export const Header = () => {
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-50 lg:hidden"
+          className="fixed inset-0 bg-black/80 z-50 md:hidden backdrop-blur-sm"
           onClick={() => setMobileMenuOpen(false)}
         />
       )}
 
       {/* Mobile Slide-out Menu */}
       <div
-        className={`fixed top-0 right-0 h-full w-4/5 max-w-xs bg-white z-50 transform transition-transform duration-300 ease-in-out lg:hidden shadow-2xl ${
+        className={`fixed top-0 right-0 h-full w-4/5 max-w-xs bg-midnight border-l border-white/10 z-50 transform transition-transform duration-300 ease-in-out md:hidden shadow-2xl ${
           mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
@@ -135,10 +128,10 @@ export const Header = () => {
         <div className="flex justify-end p-4">
           <button
             onClick={() => setMobileMenuOpen(false)}
-            className="text-gray-600 p-2"
+            className="text-white/60 p-2 hover:text-white transition-colors"
             aria-label="Close menu"
           >
-            <X size={28} />
+            <X size={24} />
           </button>
         </div>
 
@@ -146,36 +139,42 @@ export const Header = () => {
         <div className="flex flex-col px-6 space-y-1">
           <button
             onClick={() => scrollToSection('how-it-works')}
-            className="text-gray-900 text-lg font-medium py-4 border-b border-gray-200 hover:text-reach-blue transition-colors text-left"
+            className="text-white text-lg font-medium py-4 border-b border-white/10 hover:text-reach-blue transition-colors text-left"
           >
-            How it works
+            How It Works
           </button>
           <Link
             to="/universities"
             onClick={() => setMobileMenuOpen(false)}
-            className="text-gray-900 text-lg font-medium py-4 border-b border-gray-200 hover:text-reach-blue transition-colors"
+            className="text-white text-lg font-medium py-4 border-b border-white/10 hover:text-reach-blue transition-colors"
           >
             Universities
           </Link>
           <button
             onClick={() => scrollToSection('pricing')}
-            className="text-gray-900 text-lg font-medium py-4 border-b border-gray-200 hover:text-reach-blue transition-colors text-left"
+            className="text-white text-lg font-medium py-4 border-b border-white/10 hover:text-reach-blue transition-colors text-left"
           >
             Pricing
           </button>
           <button
             onClick={() => scrollToSection('faq')}
-            className="text-gray-900 text-lg font-medium py-4 border-b border-gray-200 hover:text-reach-blue transition-colors text-left"
+            className="text-white text-lg font-medium py-4 border-b border-white/10 hover:text-reach-blue transition-colors text-left"
           >
-            FAQ
+            About
           </button>
         </div>
 
         {/* Mobile CTA Button */}
         <div className="px-6 mt-8">
-          <TallyButton variant="primary" className="w-full">
+          <button
+            onClick={() => {
+              setMobileMenuOpen(false);
+              scrollToSection('cta');
+            }}
+            className="w-full px-6 py-3 rounded-full bg-gradient-to-r from-reach-blue to-reach-purple text-white font-medium hover:shadow-lg transition-all"
+          >
             Join Waitlist
-          </TallyButton>
+          </button>
         </div>
       </div>
     </>

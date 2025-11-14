@@ -3,56 +3,49 @@ import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 
 export const FAQSection = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const faqs = [
     {
-      question: 'Is this cheating?',
+      question: 'Will this write my essays for me?',
       answer:
-        "No. Reach helps you write better, it doesn't write for you. Think of it like having a writing tutor available 24/7—completely legitimate and encouraged by colleges. The essay remains yours; we just help you articulate your thoughts more clearly.",
+        'No. Reach helps you write better, not writes for you. Our AI analyzes your drafts and provides specific, actionable feedback to improve clarity, structure, and impact—while keeping your authentic voice intact. Admissions officers can spot AI-written essays. We help you tell YOUR story, just better.',
     },
     {
       question: 'How is this different from ChatGPT?',
       answer:
-        "ChatGPT is a general-purpose tool. Reach is specifically trained for college admissions and understands what makes strong applications. Plus, we preserve your voice—our goal is to sound more like YOU, not like an AI.",
+        "ChatGPT is a general tool. Reach is purpose-built for college admissions with specialized knowledge of what works in applications. We understand essay structures, activity descriptions, and the nuances of different colleges. Plus, we provide a complete workspace—not just a chat interface.",
     },
     {
-      question: 'Will this work for my situation?',
+      question: 'Is $199/year really worth it compared to free tools?',
       answer:
-        "Yes. Whether you're aiming for Ivies or state schools, international or domestic, first-gen or legacy, our tools help you tell YOUR story more effectively. The principles of good writing are universal.",
+        "Consider this: consultants charge $5,000-$20,000 for limited hours. Reach gives you unlimited access to AI guidance 24/7 for the cost of a few textbooks. If it helps you get into one better school or find one scholarship, it's paid for itself 10x over.",
     },
     {
-      question: "What if I'm not a strong writer?",
+      question: 'When can I start using Reach?',
       answer:
-        "That's exactly who we built this for. Our AI breaks down complex writing concepts into simple, actionable steps. Many of our beta users started as nervous writers and ended up confident in their essays.",
+        "We're launching Spring 2026 with early access for waitlist members. Join now to get 50% off ($99/year lifetime) and help shape the product during beta.",
     },
     {
-      question: 'When do I get access?',
+      question: "What if I don't like it?",
       answer:
-        "We're launching Spring 2026. Waitlist members get: Early access to beta (limited spots), Lifetime 50% discount ($99/year), Input on product development, and Priority support during launch.",
-    },
-    {
-      question: "What if I sign up and don't like it?",
-      answer:
-        "We'll have a 30-day money-back guarantee at launch. Try it risk-free. (Note: Beta users get it free during beta period.)",
+        "30-day money-back guarantee, no questions asked. We're confident you'll love it, but if not, you get a full refund.",
     },
   ];
 
   return (
-    <section id="faq" className="py-20 bg-white">
-      <div className="container mx-auto px-6">
+    <section id="faq" className="section-spacing bg-gradient-to-b from-midnight via-black to-midnight">
+      <div className="container mx-auto px-6 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
+          className="text-center mb-16 md:mb-20"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-midnight mb-6">
-            Questions? We've got answers.
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+            Questions?
           </h2>
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            Real talk about how Reach works and why it's different.
-          </p>
         </motion.div>
 
         <div className="max-w-3xl mx-auto space-y-4">
@@ -61,20 +54,22 @@ export const FAQSection = () => {
               key={idx}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.05 }}
-              className="bg-cloud rounded-xl overflow-hidden"
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ delay: idx * 0.05, ease: [0.33, 1, 0.68, 1] }}
+              className="border border-white/10 rounded-2xl overflow-hidden bg-gradient-to-br from-white/5 to-transparent backdrop-blur-sm hover:border-white/20 transition-colors"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
-                className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-100 transition-colors"
+                className="w-full px-6 md:px-8 py-5 md:py-6 flex items-center justify-between text-left gap-4"
               >
-                <span className="text-lg font-semibold text-midnight pr-4">{faq.question}</span>
+                <span className="text-base md:text-lg font-medium text-white/90 pr-4">
+                  {faq.question}
+                </span>
                 <motion.div
                   animate={{ rotate: openIndex === idx ? 180 : 0 }}
-                  transition={{ duration: 0.2 }}
+                  transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
                 >
-                  <ChevronDown size={24} className="text-reach-blue flex-shrink-0" />
+                  <ChevronDown size={20} className="text-white/60 flex-shrink-0" />
                 </motion.div>
               </button>
 
@@ -84,10 +79,10 @@ export const FAQSection = () => {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
                     className="overflow-hidden"
                   >
-                    <div className="px-6 pb-5 text-gray-700 leading-relaxed">
+                    <div className="px-6 md:px-8 pb-5 md:pb-6 text-white/70 leading-relaxed">
                       {faq.answer}
                     </div>
                   </motion.div>

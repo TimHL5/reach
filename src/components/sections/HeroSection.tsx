@@ -1,110 +1,105 @@
 import { motion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
-import { Button } from '../ui/Button';
-import { RotatingLogos } from '../interactive/RotatingLogos';
-import { useNavigate } from 'react-router-dom';
+import { AuroraBackground } from '../ui/aurora-background';
+import { LiquidButton } from '../ui/liquid-glass-button';
 
 export const HeroSection = () => {
-  const navigate = useNavigate();
-  
   const scrollToNext = () => {
     const nextSection = document.getElementById('problem');
     nextSection?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const headline = "Remember staring at your Common App essay at 2am, wondering if it's good enough?";
+  const words = headline.split(' ');
+
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-brand pt-20 pb-12 sm:py-0 lg:pt-0">
-      <RotatingLogos />
-
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
-          <motion.div
-            className="w-full lg:w-1/2 text-white space-y-6 sm:space-y-8"
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+    <AuroraBackground className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <div className="container mx-auto px-6 md:px-8 relative z-10">
+        <div className="flex flex-col items-center justify-center text-center max-w-5xl mx-auto">
+          <motion.h1
+            className="text-5xl sm:text-6xl md:text-7xl font-bold leading-tight tracking-tight mb-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
           >
-            <motion.h1
-              className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              Make every school within reach.
-            </motion.h1>
-
-            <motion.div
-              className="space-y-2"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-            >
-              <p className="text-xl sm:text-2xl lg:text-3xl font-semibold">
-                AI-powered college admissions guidance for $199/year.
-              </p>
-              <p className="text-xl sm:text-2xl lg:text-3xl font-semibold">
-                Not $10,000.
-              </p>
-            </motion.div>
-
-            <motion.p
-              className="text-base sm:text-lg lg:text-xl text-white/90 max-w-xl"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-            >
-              Get expert essay feedback, application strategy, and financial aid matching—the tools wealthy families use—at a price every student can afford.
-            </motion.p>
-
-            <motion.div
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-            >
-              <Button
-                variant="secondary"
-                className="w-full sm:w-auto"
-                onClick={() => navigate('/get-matched')}
+            {words.map((word, i) => (
+              <motion.span
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.5,
+                  delay: 0.3 + i * 0.1,
+                  ease: [0.33, 1, 0.68, 1],
+                }}
+                className="inline-block mr-2 md:mr-3"
+                style={{
+                  color: 'rgba(255, 255, 255, 0.95)',
+                }}
               >
-                Get My College Matches Free →
-              </Button>
-              <p className="text-white/90 text-sm text-center sm:text-left">
-                5-minute survey • Instant AI recommendations
-              </p>
-            </motion.div>
-          </motion.div>
+                {word}
+              </motion.span>
+            ))}
+          </motion.h1>
+
+          <motion.p
+            className="text-2xl sm:text-3xl md:text-4xl font-regular mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.5,
+              delay: 0.3 + words.length * 0.1 + 0.3,
+              ease: [0.33, 1, 0.68, 1],
+            }}
+            style={{
+              color: 'rgba(255, 255, 255, 0.70)',
+            }}
+          >
+            We do too.
+          </motion.p>
 
           <motion.div
-            className="w-full lg:w-1/2 flex items-center justify-center"
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              duration: 0.6,
+              delay: 0.3 + words.length * 0.1 + 0.6,
+              ease: [0.33, 1, 0.68, 1],
+            }}
+            className="flex flex-col items-center gap-6"
           >
-            <div className="relative w-full max-w-full sm:max-w-[500px] lg:max-w-[600px]">
-              <img
-                src="/gasson.jpg"
-                alt="Boston College Gasson Hall"
-                className="w-full h-auto rounded-xl sm:rounded-2xl shadow-2xl"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 to-transparent rounded-xl sm:rounded-2xl" />
-            </div>
+            <LiquidButton
+              size="xxl"
+              className="animate-pulse-gentle"
+              onClick={() => {
+                const waitlistSection = document.getElementById('cta');
+                waitlistSection?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
+              Join 500+ Students on the Waitlist
+            </LiquidButton>
+
+            <motion.button
+              onClick={scrollToNext}
+              className="text-base text-white/60 hover:text-white/90 transition-colors duration-300 underline-offset-4 hover:underline"
+              whileHover={{ y: -2 }}
+              transition={{ duration: 0.2 }}
+            >
+              See how it works ↓
+            </motion.button>
           </motion.div>
         </div>
       </div>
 
       <motion.button
         onClick={scrollToNext}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/80 hover:text-white transition-colors z-20 hidden sm:flex"
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 text-white/50 hover:text-white/80 transition-colors z-20 hidden md:flex flex-col items-center gap-2"
         animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
+        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
         aria-label="Scroll to next section"
       >
-        <div className="flex flex-col items-center space-y-2">
-          <span className="text-sm">Scroll to explore</span>
-          <ArrowDown size={24} />
-        </div>
+        <span className="text-sm tracking-wide">Scroll to explore</span>
+        <ArrowDown size={20} />
       </motion.button>
-    </section>
+    </AuroraBackground>
   );
 };
