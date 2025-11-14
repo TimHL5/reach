@@ -2,6 +2,8 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { AuroraBackground } from '../ui/aurora-background';
 import { WaitlistButton } from '../ui/waitlist-button';
+import { FloatingOrbs } from '../ui/floating-orbs';
+import { useCurrentTime, getTimeBasedMessage } from '../../hooks/useCurrentTime';
 
 export const HeroSection = () => {
   const ref = useRef(null);
@@ -15,12 +17,27 @@ export const HeroSection = () => {
   const y2 = useTransform(scrollYProgress, [0, 1], [0, -100]);
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.5, 0]);
 
-  const headline = "are YOU staring at your Common App essay at 2am, wondering if it's good enough?";
+  // Time-based personalization
+  const currentTime = useCurrentTime();
+
+  // Default message for SSR/initial render
+  const defaultMessage = {
+    time: '6pm',
+    message: "staring at your Common App essay at 2am, wondering if it's good enough?",
+  };
+
+  // Get personalized message based on time
+  const { message } = currentTime ? getTimeBasedMessage(currentTime) : defaultMessage;
+
+  const headline = `are YOU ${message}`;
   const words = headline.split(' ');
 
   return (
     <section ref={ref} className="relative w-full min-h-screen">
       <AuroraBackground className="absolute inset-0">
+        {/* 3D Floating Orbs Background */}
+        <FloatingOrbs />
+
         {/* Animated gradient orbs with parallax */}
         <motion.div
           style={{ y: y1 }}

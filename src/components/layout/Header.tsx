@@ -61,7 +61,7 @@ export const Header = () => {
         transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? 'bg-black/80 backdrop-blur-xl border-b border-white/10 py-4'
+            ? 'bg-black/80 backdrop-blur-xl border-b border-white/10 shadow-sm py-4'
             : 'bg-transparent py-6'
         }`}
       >
