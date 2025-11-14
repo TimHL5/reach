@@ -118,17 +118,18 @@ export const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2.5, duration: 0.8 }}
           whileHover={{ y: 5 }}
-          className="absolute bottom-16 md:bottom-20
+          className="absolute bottom-20 md:bottom-24
                      left-0 right-0 mx-auto
-                     w-fit
+                     w-fit mt-8 md:mt-12
                      flex flex-col items-center justify-center gap-3
-                     text-white/70 hover:text-white
+                     text-white/90 hover:text-white
+                     font-semibold
                      transition-all duration-300
                      cursor-pointer z-30
                      px-4"
-          style={{ transform: 'translateX(0)' }}
+          style={{ textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}
         >
-          <span className="text-sm md:text-base font-medium tracking-wide">
+          <span className="text-sm md:text-base tracking-wide">
             See how it works
           </span>
           <motion.svg
