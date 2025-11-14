@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import type { Transition } from 'framer-motion';
 
 interface VerticalCutRevealProps {
   children: string;
@@ -9,12 +10,7 @@ interface VerticalCutRevealProps {
   reverse?: boolean;
   containerClassName?: string;
   className?: string;
-  transition?: {
-    type?: string;
-    stiffness?: number;
-    damping?: number;
-    duration?: number;
-  };
+  transition?: Transition;
 }
 
 export const VerticalCutReveal: React.FC<VerticalCutRevealProps> = ({
