@@ -104,54 +104,52 @@ export const HeroSection = () => {
                 Join 500+ Students on the Waitlist
               </WaitlistButton>
             </motion.div>
+
+            {/* Enhanced scroll indicator */}
+            <motion.button
+              onClick={() => {
+                document.getElementById('journey')?.scrollIntoView({
+                  behavior: 'smooth'
+                });
+              }}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 2.5, duration: 0.8 }}
+              whileHover={{ y: 5 }}
+              className="mt-8 md:mt-12
+                         flex flex-col items-center justify-center gap-3
+                         text-white/90 hover:text-white
+                         font-semibold
+                         transition-all duration-300
+                         cursor-pointer
+                         px-4"
+              style={{ textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}
+            >
+              <span className="text-sm md:text-base tracking-wide">
+                See how it works
+              </span>
+              <motion.svg
+                animate={{ y: [0, 8, 0] }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+                className="w-6 h-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M19 9l-7 7-7-7"
+                />
+              </motion.svg>
+            </motion.button>
           </div>
         </div>
-
-        {/* Enhanced scroll indicator */}
-        <motion.button
-          onClick={() => {
-            document.getElementById('journey')?.scrollIntoView({
-              behavior: 'smooth'
-            });
-          }}
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.5, duration: 0.8 }}
-          whileHover={{ y: 5 }}
-          className="absolute bottom-20 md:bottom-24
-                     left-0 right-0 mx-auto
-                     w-fit mt-8 md:mt-12
-                     flex flex-col items-center justify-center gap-3
-                     text-white/90 hover:text-white
-                     font-semibold
-                     transition-all duration-300
-                     cursor-pointer z-30
-                     px-4"
-          style={{ textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}
-        >
-          <span className="text-sm md:text-base tracking-wide">
-            See how it works
-          </span>
-          <motion.svg
-            animate={{ y: [0, 8, 0] }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className="w-6 h-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M19 9l-7 7-7-7"
-            />
-          </motion.svg>
-        </motion.button>
       </motion.div>
     </section>
   );

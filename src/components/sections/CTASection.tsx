@@ -1,11 +1,10 @@
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
-import { AuroraBackground } from '../ui/aurora-background';
 import { WaitlistButton } from '../ui/waitlist-button';
 
 export const CTASection = () => {
   return (
-    <AuroraBackground className="relative section-spacing overflow-hidden" showRadialGradient={true}>
+    <section className="relative section-spacing overflow-hidden bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#1e1b4b]">
       <div className="container mx-auto px-6 md:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -69,6 +68,6 @@ export const CTASection = () => {
           </motion.p>
         </motion.div>
       </div>
-    </AuroraBackground>
+    </section>
   );
 };

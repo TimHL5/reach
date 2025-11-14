@@ -47,7 +47,7 @@ export const SolutionSection = () => {
   ];
 
   return (
-    <section id="solution" className="py-20 bg-cloud">
+    <section id="solution" className="py-20 bg-midnight">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -55,10 +55,10 @@ export const SolutionSection = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-midnight mb-6">
+          <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-6">
             Everything you need to reach your dream schools.
           </h2>
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+          <p className="text-white/80 text-lg md:text-xl text-center max-w-4xl mx-auto">
             From freshman year to acceptance, Reach is the workspace where you build your
             application with AI guidance at every step.
           </p>
